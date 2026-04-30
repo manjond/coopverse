@@ -16,7 +16,37 @@
     "heroSubtitle": "Decenas de juegos para 2, 3 y 4 jugadores. Directo en tu navegador.",
     "ctaPlayNow": "Jugar ahora",
     "featuredGame": "Juego destacado",
-    "browseAll": "Ver todos los juegos"
+    "browseAll": "Ver todos los juegos",
+    "popular": "Populares ahora",
+    "categoriesTitle": "Explora por categoría"
+  },
+  "Game": {
+    "playersRange": "Jugadores",
+    "categories": "Categorías",
+    "howToPlay": "Cómo jugar",
+    "description": "Descripción",
+    "openFullscreen": "Abrir a pantalla completa",
+    "relatedTitle": "Otros juegos que te pueden gustar"
+  },
+  "Category": {
+    "noGames": "Aún no hay juegos en esta categoría. Vuelve pronto."
+  },
+  "Play": {
+    "backToCatalog": "Volver al catálogo",
+    "loadingGame": "Cargando juego…",
+    "fullscreenHint": "Pulsa F11 para pantalla completa.",
+    "openInNewTab": "Abrir en una pestaña nueva"
+  },
+  "Cookies": {
+    "message": "Usamos cookies para mejorar tu experiencia y, en el futuro, para mostrar anuncios. No cargamos nada hasta que decidas.",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "privacyLink": "Lee nuestra política de privacidad"
+  },
+  "Legal": {
+    "privacyTitle": "Política de privacidad",
+    "termsTitle": "Términos de uso",
+    "lastUpdated": "Última actualización"
   },
   "Common": {
     "play": "Jugar",
