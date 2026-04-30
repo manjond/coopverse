@@ -1,0 +1,26 @@
+{
+  "Meta": {
+    "siteName": "Coopverse",
+    "tagline": "Juegos cooperativos y multijugador en tu navegador",
+    "description": "Coopverse — el portal de juegos cooperativos y multijugador para jugar gratis en tu navegador, sin descargar nada."
+  },
+  "Nav": {
+    "home": "Inicio",
+    "categories": "Categorías",
+    "trending": "Populares",
+    "newGames": "Nuevos",
+    "blog": "Blog"
+  },
+  "Home": {
+    "heroTitle": "Juega cooperativo, juega online, sin descargar",
+    "heroSubtitle": "Decenas de juegos para 2, 3 y 4 jugadores. Directo en tu navegador.",
+    "ctaPlayNow": "Jugar ahora",
+    "featuredGame": "Juego destacado",
+    "browseAll": "Ver todos los juegos"
+  },
+  "Common": {
+    "play": "Jugar",
+    "loading": "Cargando…",
+    "back": "Volver"
+  }
+}
