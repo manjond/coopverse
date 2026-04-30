@@ -4,12 +4,17 @@ import { routing } from '@/i18n/routing';
 
 const BASE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coopverse.io').replace(/\/$/, '');
 
+// Render the sitemap at request time, not during build. Sitemaps don't
+// benefit from static gen — Google requests it once a day at most — and
+// runtime rendering means the build never depends on DATABASE_URL being
+// present in the build environment, plus admin-added games show up in
+// the sitemap immediately without a redeploy.
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
+
 /**
- * Dynamic sitemap. Re-built at deploy time from the catalog so newly
- * added games appear in Google's crawl queue without manual work.
- *
- * Includes locale alternates (`hreflang`) inline so Google ranks the
- * Spanish and English variants as equivalents instead of duplicates.
+ * Sitemap with hreflang alternates inline so Google ranks the Spanish
+ * and English variants as equivalents instead of duplicates.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [cats, games] = await Promise.all([getAllCategories(), getAllGames()]);
