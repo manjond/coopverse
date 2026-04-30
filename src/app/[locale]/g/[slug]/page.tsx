@@ -3,14 +3,21 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { GameCard } from '@/components/GameCard';
-import { GAMES, gameBySlug, gamesByCategory } from '@/data/games';
-import { categoryBySlug } from '@/data/categories';
+import {
+  getAllGames,
+  getCategoryBySlug,
+  getGameBySlug,
+  getRelatedGames,
+  projectCategory,
+  projectGame,
+} from '@/db/queries';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const all = await getAllGames();
   return routing.locales.flatMap((locale) =>
-    GAMES.map((g) => ({ locale, slug: g.slug })),
+    all.map((g) => ({ locale, slug: g.slug })),
   );
 }
 
@@ -20,8 +27,9 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const game = gameBySlug(slug);
-  if (!game) return {};
+  const row = await getGameBySlug(slug);
+  if (!row) return {};
+  const game = projectGame(row);
   const lc = locale as Locale;
   return {
     title: game.title[lc],
@@ -48,16 +56,25 @@ export default async function GameDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const game = gameBySlug(slug);
-  if (!game) notFound();
+  const row = await getGameBySlug(slug);
+  if (!row) notFound();
+  const game = projectGame(row);
   const lc = locale as Locale;
   const tGame = await getTranslations('Game');
   const tHome = await getTranslations('Home');
 
   // Pull related from the first matching category, exclude self.
   const related = game.categories[0]
-    ? gamesByCategory(game.categories[0]).filter((g) => g.slug !== game.slug).slice(0, 4)
+    ? (await getRelatedGames(game.slug, game.categories[0], 4)).map(projectGame)
     : [];
+
+  // Resolve category names for the chip row in a single batch.
+  const categoryRows = await Promise.all(
+    game.categories.map((s) => getCategoryBySlug(s)),
+  );
+  const categoryByCSlug = new Map(
+    categoryRows.filter((c): c is NonNullable<typeof c> => Boolean(c)).map((c) => [c.slug, projectCategory(c)]),
+  );
 
   // Schema.org VideoGame markup — boosts rich-result eligibility on Google.
   const schema = {
@@ -100,7 +117,7 @@ export default async function GameDetailPage({
                 : `${game.minPlayers}–${game.maxPlayers}`}
             </span>
             {game.categories.map((cs) => {
-              const c = categoryBySlug(cs);
+              const c = categoryByCSlug.get(cs);
               return c ? (
                 <Link
                   key={cs}

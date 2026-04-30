@@ -2,8 +2,13 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { GameCard } from '@/components/GameCard';
-import { CATEGORIES, categoryBySlug } from '@/data/categories';
-import { gamesByCategory } from '@/data/games';
+import {
+  getAllCategories,
+  getCategoryBySlug,
+  getGamesByCategory,
+  projectCategory,
+  projectGame,
+} from '@/db/queries';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -12,9 +17,10 @@ import { routing } from '@/i18n/routing';
  * 2 locales × N categories the matrix is small — fine for static
  * generation. When the catalog grows beyond 100 categories revisit.
  */
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const cats = await getAllCategories();
   return routing.locales.flatMap((locale) =>
-    CATEGORIES.map((c) => ({ locale, slug: c.slug })),
+    cats.map((c) => ({ locale, slug: c.slug })),
   );
 }
 
@@ -24,8 +30,9 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const cat = categoryBySlug(slug);
-  if (!cat) return {};
+  const row = await getCategoryBySlug(slug);
+  if (!row) return {};
+  const cat = projectCategory(row);
   const lc = locale as Locale;
   return {
     title: cat.name[lc],
@@ -46,10 +53,11 @@ export default async function CategoryPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const cat = categoryBySlug(slug);
-  if (!cat) notFound();
+  const row = await getCategoryBySlug(slug);
+  if (!row) notFound();
+  const cat = projectCategory(row);
   const lc = locale as Locale;
-  const games = gamesByCategory(slug);
+  const games = (await getGamesByCategory(slug)).map(projectGame);
   const tCat = await getTranslations('Category');
 
   return (

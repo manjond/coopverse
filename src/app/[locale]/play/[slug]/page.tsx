@@ -1,13 +1,14 @@
 import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
-import { GAMES, gameBySlug } from '@/data/games';
+import { getAllGames, getGameBySlug, projectGame } from '@/db/queries';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const all = await getAllGames();
   return routing.locales.flatMap((locale) =>
-    GAMES.map((g) => ({ locale, slug: g.slug })),
+    all.map((g) => ({ locale, slug: g.slug })),
   );
 }
 
@@ -24,8 +25,9 @@ export default async function PlayPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const game = gameBySlug(slug);
-  if (!game) notFound();
+  const row = await getGameBySlug(slug);
+  if (!row) notFound();
+  const game = projectGame(row);
   const lc = locale as Locale;
   const tPlay = await getTranslations('Play');
 

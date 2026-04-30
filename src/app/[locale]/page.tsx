@@ -1,8 +1,13 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { GameCard } from '@/components/GameCard';
-import { CATEGORIES } from '@/data/categories';
-import { featuredGames, popularGames } from '@/data/games';
+import {
+  getAllCategories,
+  getFeaturedGames,
+  getPopularGames,
+  projectCategory,
+  projectGame,
+} from '@/db/queries';
 import type { Locale } from '@/data/types';
 
 export default async function Home({
@@ -14,8 +19,14 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations('Home');
 
-  const featured = featuredGames()[0];
-  const popular = popularGames(8);
+  const [featuredRows, popularRows, categoryRows] = await Promise.all([
+    getFeaturedGames(),
+    getPopularGames(8),
+    getAllCategories(),
+  ]);
+  const featured = featuredRows[0] ? projectGame(featuredRows[0]) : null;
+  const popular = popularRows.map(projectGame);
+  const allCategories = categoryRows.map(projectCategory);
   const lc = locale as Locale;
 
   return (
@@ -96,7 +107,7 @@ export default async function Home({
           {t('categoriesTitle')}
         </h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
-          {CATEGORIES.map((c) => (
+          {allCategories.map((c) => (
             <Link
               key={c.slug}
               href={`/c/${c.slug}`}
