@@ -25,6 +25,7 @@
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "https://coopverse.io",
     "NEXT_PUBLIC_PIKOPARK_URL": "https://pikopark-online-client.vercel.app",
-    "NEXT_PUBLIC_ADSENSE_PUB_ID": "ca-pub-5335855577404641"
+    "NEXT_PUBLIC_ADSENSE_PUB_ID": "ca-pub-5335855577404641",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_aGVyb2ljLW1hc3RpZmYtMzYuY2xlcmsuYWNjb3VudHMuZGV2JA"
   }
 }
