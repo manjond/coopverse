@@ -28,9 +28,9 @@ export default function Content() {
         compartidos a pesar de la distancia física.
       </p>
 
-      <h3>1. PikoPark — El mejor cooperativo para dos</h3>
+      <h3>1. Wobble Park — El mejor cooperativo para dos</h3>
       <p>
-        Diseñado específicamente para cooperación, PikoPark es el juego de pareja definitivo
+        Diseñado específicamente para cooperación, Wobble Park es el juego de pareja definitivo
         en navegador. Los puzzles requieren comunicación real: &quot;espera, ahora paso yo&quot;,
         &quot;empuja hacia la izquierda&quot;, &quot;¡no, para!&quot;. Cada sesión genera
         momentos únicos de coordinación y frustración compartida (en el buen sentido). Sin
@@ -117,7 +117,7 @@ export default function Content() {
         </li>
         <li>
           <strong>Empezad con algo ligero.</strong> Skribbl o Wordle para entrar en modo
-          juego antes de pasar a algo más intenso como PikoPark o ajedrez.
+          juego antes de pasar a algo más intenso como Wobble Park o ajedrez.
         </li>
         <li>
           <strong>Alternád quién elige el siguiente juego.</strong> Así los dos tenéis voz
@@ -138,7 +138,7 @@ export default function Content() {
       <p>
         <strong>En el mismo sofá:</strong> Muchos juegos cooperativos del navegador
         funcionan en modo local: un dispositivo, dos jugadores con teclado repartido (WASD
-        para uno, flechas para el otro). PikoPark incluye esta opción.
+        para uno, flechas para el otro). Wobble Park incluye esta opción.
       </p>
 
       <p>

@@ -40,13 +40,13 @@ export default function Content() {
         </li>
       </ul>
 
-      <h2>1. PikoPark — El rey del caos cooperativo</h2>
+      <h2>1. Wobble Park — El rey del caos cooperativo</h2>
       <p>
         <strong>Jugadores:</strong> 2–4 · <strong>Género:</strong> Puzzle cooperativo ·{' '}
         <strong>Gratis en Coopverse</strong>
       </p>
       <p>
-        PikoPark es el juego cooperativo más divertido que hemos probado en mucho tiempo.
+        Wobble Park es el juego cooperativo más divertido que hemos probado en mucho tiempo.
         Cada nivel exige coordinación perfecta: uno abre la puerta mientras el otro empuja
         la caja, y el tercero intenta no caerse al vacío. La curva de dificultad es
         perfecta — las primeras partidas son accesibles para cualquiera, pero los niveles
@@ -154,9 +154,9 @@ export default function Content() {
         impresionante. El plan gratuito es suficiente para empezar.
       </p>
 
-      <h2>Conclusión: empieza con PikoPark</h2>
+      <h2>Conclusión: empieza con Wobble Park</h2>
       <p>
-        Si tienes que elegir uno para esta noche, empieza con PikoPark. Es inmediato, no
+        Si tienes que elegir uno para esta noche, empieza con Wobble Park. Es inmediato, no
         requiere registro, funciona en móvil y ordenador, y garantizamos que habrá
         momentos de caos total que os harán reír. El resto de la lista os espera cuando
         queráis explorar más.

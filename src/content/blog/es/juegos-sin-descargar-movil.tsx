@@ -72,7 +72,7 @@ export default function Content() {
         pero no en móvil. Sala privada con código para jugar con amigos.
       </p>
 
-      <h4>7. PikoPark</h4>
+      <h4>7. Wobble Park</h4>
       <p>
         Cooperativo de puzzles disponible en Coopverse. Controles con teclado en PC, táctil
         en móvil. La experiencia es mejor en PC por la precisión del teclado, pero el móvil

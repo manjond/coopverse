@@ -30,9 +30,9 @@ export default function Content() {
 
       <h2>Los mejores juegos cooperativos para 3 jugadores</h2>
 
-      <h3>1. PikoPark — Caos coordinado en trio</h3>
+      <h3>1. Wobble Park — Caos coordinado en trio</h3>
       <p>
-        PikoPark brilla especialmente con 3 jugadores. Los niveles están diseñados para que
+        Wobble Park brilla especialmente con 3 jugadores. Los niveles están diseñados para que
         sea imposible que un solo jugador resuelva el puzzle: necesitas los tres coordinados
         al mismo tiempo. El tercero actúa muchas veces como sincronizador, dando la señal
         para que los otros dos actúen a la vez. En Coopverse, sin descargas.
@@ -109,7 +109,7 @@ export default function Content() {
         </li>
         <li>
           <strong>Usad Discord o una llamada.</strong> La voz en tiempo real multiplica la
-          diversión de cualquier juego cooperativo. Especialmente en PikoPark.
+          diversión de cualquier juego cooperativo. Especialmente en Wobble Park.
         </li>
         <li>
           <strong>Aceptad el caos.</strong> Con 3 jugadores hay más variables. Que algo

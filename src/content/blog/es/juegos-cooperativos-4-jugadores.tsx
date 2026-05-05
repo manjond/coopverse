@@ -30,9 +30,9 @@ export default function Content() {
 
       <h2>Los mejores cooperativos para 4 jugadores</h2>
 
-      <h3>1. PikoPark — El referente del género</h3>
+      <h3>1. Wobble Park — El referente del género</h3>
       <p>
-        Diseñado para hasta 4 jugadores, PikoPark alcanza su plenitud con el equipo completo.
+        Diseñado para hasta 4 jugadores, Wobble Park alcanza su plenitud con el equipo completo.
         Los puzzles más avanzados requieren exactamente 4 acciones simultáneas: cada jugador
         tiene un rol que cumplir en el mismo instante. La satisfacción de sincronizaros
         perfectamente después de varios intentos fallidos es inigualable. Disponible en
@@ -126,7 +126,7 @@ export default function Content() {
 
       <h2>El juego ideal según el estado de ánimo</h2>
       <ul>
-        <li><strong>Relajados y con tiempo:</strong> PikoPark o Codenames</li>
+        <li><strong>Relajados y con tiempo:</strong> Wobble Park o Codenames</li>
         <li><strong>Energía alta, quieren reírse:</strong> Gartic Phone o Skribbl.io</li>
         <li><strong>Modo competitivo:</strong> GeoGuessr batalla o Krunker.io</li>
         <li><strong>Noche de party games:</strong> Jackbox (si alguien lo tiene)</li>

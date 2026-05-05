@@ -21,7 +21,7 @@ export default function Content() {
 
       <h2>Cooperativos puros (trabajan juntos)</h2>
 
-      <h3>1. PikoPark</h3>
+      <h3>1. Wobble Park</h3>
       <p>
         El mejor cooperativo para 2 jugadores de toda esta lista. Niveles de puzzle que exigen
         coordinación real: uno abre puertas mientras el otro empuja cajas, los dos intentan no
@@ -125,10 +125,10 @@ export default function Content() {
       <h2>Cómo elegir según la situación</h2>
       <ul>
         <li><strong>Tenéis 10 minutos:</strong> Wordle compartido o GeoGuessr duelo.</li>
-        <li><strong>Queréis reíros:</strong> PikoPark o Skribbl.io.</li>
+        <li><strong>Queréis reíros:</strong> Wobble Park o Skribbl.io.</li>
         <li><strong>Os gustan los clásicos:</strong> Chess.com o Lichess.</li>
         <li><strong>Buscáis acción:</strong> Krunker.io o Surviv.io.</li>
-        <li><strong>Preferís cooperar:</strong> PikoPark o Codenames Duet.</li>
+        <li><strong>Preferís cooperar:</strong> Wobble Park o Codenames Duet.</li>
       </ul>
 
       <p>

@@ -39,7 +39,7 @@ export default function Content() {
         Antes de llamar a nadie, decide qué queréis jugar según el grupo:
       </p>
       <ul>
-        <li><strong>2 jugadores, cooperativo:</strong> PikoPark en Coopverse</li>
+        <li><strong>2 jugadores, cooperativo:</strong> Wobble Park en Coopverse</li>
         <li><strong>2-4 jugadores, social:</strong> Skribbl.io o Gartic Phone</li>
         <li><strong>4+ jugadores, party:</strong> Jackbox (necesita uno con el juego) o Among Us</li>
         <li><strong>Grupo grande, rápido:</strong> GeoGuessr duelo o Codenames online</li>
@@ -68,7 +68,7 @@ export default function Content() {
         <li>Tu amigo lo abre, entra a la sala, empieza</li>
       </ol>
       <p>
-        En PikoPark y otros juegos de Coopverse, el proceso es aún más simple: un enlace
+        En Wobble Park y otros juegos de Coopverse, el proceso es aún más simple: un enlace
         directo y sin registro.
       </p>
 

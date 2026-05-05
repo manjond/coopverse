@@ -27,7 +27,7 @@ export default async function AdminDashboard() {
         <Stat label="Games"        value={allGames.length} />
         <Stat label="Categories"   value={allCats.length} />
         <Stat label="Featured"     value={featuredCount} />
-        <Stat label="Own (PikoPark+)" value={ownCount} accent={ownCount > 0 ? 'good' : 'warn'} />
+        <Stat label="Own (Wobble Park+)" value={ownCount} accent={ownCount > 0 ? 'good' : 'warn'} />
       </div>
 
       {placeholderCount > 0 && (

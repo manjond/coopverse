@@ -14,7 +14,7 @@ const COPY: Record<Locale, { lastUpdated: string; html: string }> = {
       <p>Coopverse ofrece acceso gratuito a un catálogo de juegos de navegador, propios y de terceros. Te comprometes a no usar el sitio para fines ilícitos, no intentar vulnerar la seguridad ni hacer scraping masivo del catálogo.</p>
 
       <h2>Propiedad intelectual</h2>
-      <p>El contenido propio (textos, marca Coopverse, juego PikoPark) es propiedad del operador. Los juegos servidos por terceros son propiedad de sus respectivos autores; los respetamos según sus términos de licencia.</p>
+      <p>El contenido propio (textos, marca Coopverse, juego Wobble Park) es propiedad del operador. Los juegos servidos por terceros son propiedad de sus respectivos autores; los respetamos según sus términos de licencia.</p>
 
       <h2>Cuentas de usuario</h2>
       <p>Cuando activemos el registro, eres responsable de la confidencialidad de tu contraseña y de las actividades en tu cuenta. Podemos suspender cuentas que infrinjan estos términos.</p>
@@ -42,7 +42,7 @@ const COPY: Record<Locale, { lastUpdated: string; html: string }> = {
       <p>Coopverse offers free access to a catalog of browser games, own and third-party. You agree not to use the site for unlawful purposes, not to attempt to breach security, and not to perform mass scraping of the catalog.</p>
 
       <h2>Intellectual property</h2>
-      <p>Original content (text, the Coopverse brand, the PikoPark game) is owned by the operator. Third-party games are owned by their respective authors; we respect their license terms.</p>
+      <p>Original content (text, the Coopverse brand, the Wobble Park game) is owned by the operator. Third-party games are owned by their respective authors; we respect their license terms.</p>
 
       <h2>User accounts</h2>
       <p>When sign-up is enabled, you are responsible for the confidentiality of your password and activity on your account. Accounts violating these terms may be suspended.</p>

@@ -1,28 +1,28 @@
 import type { PostMeta } from '../types';
 
 export const meta: PostMeta = {
-  slug: 'pikopark-guia-completa-juego-cooperativo',
-  title: 'PikoPark: guía completa del mejor juego cooperativo de navegador',
+  slug: 'wobble-park-guia-completa-juego-cooperativo',
+  title: 'Wobble Park: guía completa del mejor juego cooperativo de navegador',
   description:
-    'Todo sobre PikoPark: cómo jugar, mecánicas, niveles, consejos para superar los más difíciles y por qué es el mejor juego cooperativo de navegador disponible gratis.',
+    'Todo sobre Wobble Park: cómo jugar, mecánicas, niveles, consejos para superar los más difíciles y por qué es el mejor juego cooperativo de navegador disponible gratis.',
   publishedAt: '2026-05-13',
   readingTimeMin: 6,
-  tags: ['pikopark', 'cooperativo', 'guía', 'navegador'],
+  tags: ['wobble-park', 'cooperativo', 'guía', 'navegador'],
 };
 
 export default function Content() {
   return (
     <>
       <p>
-        PikoPark es el juego cooperativo de navegador más completo que hemos probado. A
+        Wobble Park es el juego cooperativo de navegador más completo que hemos probado. A
         diferencia de la mayoría de juegos web gratuitos, tiene diseño de niveles cuidado,
         mecánicas de cooperación genuinas y una curva de dificultad que escala bien. Esta
         guía cubre todo lo que necesitas saber para sacarle el máximo partido.
       </p>
 
-      <h2>¿Qué es PikoPark?</h2>
+      <h2>¿Qué es Wobble Park?</h2>
       <p>
-        PikoPark es un juego de puzzles cooperativos diseñado para 2 a 4 jugadores.
+        Wobble Park es un juego de puzzles cooperativos diseñado para 2 a 4 jugadores.
         Cada nivel es un escenario donde los jugadores deben coordinarse para superar
         obstáculos, activar mecanismos y llegar todos juntos a la salida. Ningún jugador
         puede completar el nivel solo — la cooperación no es opcional, es la mecánica central.
@@ -77,7 +77,7 @@ export default function Content() {
       <p>
         En los niveles más complejos, que un jugador tome el rol de director ayuda
         enormemente. No es que mande — es que coordina los tiempos. &quot;En 3, 2, 1...
-        ahora&quot; es la frase más útil de PikoPark.
+        ahora&quot; es la frase más útil de Wobble Park.
       </p>
 
       <h3>Si algo no funciona, parad</h3>
@@ -123,10 +123,10 @@ export default function Content() {
         y quieren añadir presión. Genera los momentos más frenéticos del juego.
       </p>
 
-      <h2>Por qué PikoPark destaca entre los juegos cooperativos de navegador</h2>
+      <h2>Por qué Wobble Park destaca entre los juegos cooperativos de navegador</h2>
       <p>
         La mayoría de juegos &quot;cooperativos&quot; de navegador son en realidad juegos
-        individuales con un modo multijugador añadido. PikoPark está diseñado de raíz para
+        individuales con un modo multijugador añadido. Wobble Park está diseñado de raíz para
         la cooperación: es imposible completar ningún nivel sin los demás jugadores. Esa
         diferencia de diseño se nota en cada momento de juego.
       </p>
@@ -136,7 +136,7 @@ export default function Content() {
         solución elegante que da satisfacción real cuando la encontráis.
       </p>
 
-      <h2>¿Para quién es PikoPark?</h2>
+      <h2>¿Para quién es Wobble Park?</h2>
       <ul>
         <li>Parejas o amigos que quieren cooperar, no competir</li>
         <li>Familias con niños de 8+ años (los controles son simples)</li>
@@ -145,7 +145,7 @@ export default function Content() {
       </ul>
 
       <p>
-        PikoPark está disponible directamente en Coopverse. Sin descargas, sin registro,
+        Wobble Park está disponible directamente en Coopverse. Sin descargas, sin registro,
         sin pago. Abre el enlace, invita a tus amigos, y empezad.
       </p>
     </>

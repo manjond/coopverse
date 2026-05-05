@@ -92,7 +92,7 @@ export default async function Home({
                 {/* Placeholder thumbnail — replace with real screenshot once we have one. */}
                 <div className="grid h-full w-full place-items-center text-zinc-300">
                   <span className="text-4xl font-black tracking-tighter">
-                    PIKO<span className="text-cyan-300">PARK</span>
+                    WOBBLE<span className="text-cyan-300">PARK</span>
                   </span>
                 </div>
               </div>
