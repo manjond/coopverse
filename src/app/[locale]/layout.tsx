@@ -14,6 +14,11 @@ import '../globals.css';
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
 
+// publishableKey is hardcoded so it's always embedded at build time regardless
+// of how Cloudflare Pages exposes env vars during the build step.
+const CLERK_PK = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  ?? 'pk_test_aGVyb2ljLW1hc3RpZmYtMzYuY2xlcmsuYWNjb3VudHMuZGV2JA';
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -31,7 +36,6 @@ export async function generateMetadata({
     metadataBase: new URL(
       process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coopverse.io',
     ),
-    // hreflang — tells Google these pages are equivalents in other locales.
     alternates: {
       canonical: `/${locale}`,
       languages: Object.fromEntries(
@@ -55,7 +59,7 @@ export default async function LocaleLayout({
   const tCookies = await getTranslations('Cookies');
 
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={CLERK_PK}>
       <html
         lang={locale}
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}

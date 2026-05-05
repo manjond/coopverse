@@ -17,6 +17,8 @@ import { getPostsByLocale } from '@/content/blog/registry';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const all = await getAllGames();
   return routing.locales.flatMap((locale) =>

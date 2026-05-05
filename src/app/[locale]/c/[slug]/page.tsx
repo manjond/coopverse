@@ -17,6 +17,8 @@ import { routing } from '@/i18n/routing';
  * 2 locales × N categories the matrix is small — fine for static
  * generation. When the catalog grows beyond 100 categories revisit.
  */
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const cats = await getAllCategories();
   return routing.locales.flatMap((locale) =>
