@@ -11,6 +11,7 @@ import {
   projectCategory,
   projectGame,
 } from '@/db/queries';
+import { AdSlot } from '@/components/AdSlot';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -156,6 +157,9 @@ export default async function GameDetailPage({
           {game.instructions[lc]}
         </p>
       </section>
+
+      {/* Ad slot — activates automatically when NEXT_PUBLIC_ADSENSE_PUB_ID is set */}
+      <AdSlot slot="3291847562" format="horizontal" className="mt-10" />
 
       {related.length > 0 && (
         <section className="mt-12">
