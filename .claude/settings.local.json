@@ -1,7 +1,22 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:gamedistribution.com)",
+      "WebFetch(domain:www.gamepix.com)",
+      "WebSearch",
+      "Bash(grep -E \"\\\\.\\(json|ts|js|example\\)$\")",
+      "WebFetch(domain:business.gamezop.com)",
+      "WebFetch(domain:twozygames.com)",
+      "WebFetch(domain:idev.games)",
+      "WebFetch(domain:www.htmlgames.com)",
+      "WebFetch(domain:blog.gamedistribution.com)",
+      "WebFetch(domain:1000webgames.com)",
+      "WebFetch(domain:plays.org)",
+      "WebFetch(domain:itch.io)",
+      "WebFetch(domain:www.y8.com)"
     ]
   }
 }
