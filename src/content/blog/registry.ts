@@ -13,6 +13,8 @@ import * as mesaES from './es/juegos-mesa-online-gratis';
 import * as pikoparkES from './es/pikopark-guia-completa';
 import * as parejaES from './es/juegos-online-pareja';
 import * as movilES from './es/juegos-sin-descargar-movil';
+import * as bonkES from './es/juegos-tipo-bonk-io';
+import * as partyES from './es/mejores-juegos-party-con-amigos';
 
 export const ES_POSTS: Post[] = [
   { meta: mejoresCoopES.meta, Content: mejoresCoopES.default },
@@ -26,6 +28,8 @@ export const ES_POSTS: Post[] = [
   { meta: pikoparkES.meta, Content: pikoparkES.default },
   { meta: parejaES.meta, Content: parejaES.default },
   { meta: movilES.meta, Content: movilES.default },
+  { meta: bonkES.meta, Content: bonkES.default },
+  { meta: partyES.meta, Content: partyES.default },
 ];
 
 // EN — empty until ES traction is proven (see PORTAL_PLAN.md §3).
