@@ -13,6 +13,7 @@ import {
 } from '@/db/queries';
 import { AdSlot } from '@/components/AdSlot';
 import { safeJsonLd } from '@/lib/safe-json-ld';
+import { getPostsByLocale } from '@/content/blog/registry';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -64,6 +65,14 @@ export default async function GameDetailPage({
   const lc = locale as Locale;
   const tGame = await getTranslations('Game');
   const tHome = await getTranslations('Home');
+
+  // Pick up to 3 blog posts that mention this game's category in their tags
+  const blogPosts = getPostsByLocale(locale)
+    .filter((p) =>
+      game.categories.some((cat) => p.meta.tags.includes(cat)) ||
+      p.meta.tags.some((t) => game.slug.includes(t.replace('-', '')))
+    )
+    .slice(0, 3);
 
   // Pull related from the first matching category, exclude self.
   const related = game.categories[0]
@@ -159,8 +168,31 @@ export default async function GameDetailPage({
         </p>
       </section>
 
-      {/* Ad slot — activates automatically when NEXT_PUBLIC_ADSENSE_PUB_ID is set */}
       <AdSlot slot="3291847562" format="horizontal" className="mt-10" />
+
+      {blogPosts.length > 0 && (
+        <section className="mt-12">
+          <h2 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
+            {lc === 'es' ? 'Artículos relacionados' : 'Related articles'}
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {blogPosts.map(({ meta }) => (
+              <Link
+                key={meta.slug}
+                href={`/blog/${meta.slug}`}
+                className="group rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 transition hover:border-cyan-500/40"
+              >
+                <p className="text-sm font-semibold text-zinc-200 group-hover:text-white line-clamp-2">
+                  {meta.title}
+                </p>
+                <p className="mt-1 text-xs text-zinc-500">
+                  {meta.readingTimeMin} min {lc === 'es' ? 'de lectura' : 'read'}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="mt-12">

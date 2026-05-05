@@ -120,6 +120,7 @@ export function projectGame(g: Game) {
     maxPlayers: g.maxPlayers,
     categories: g.categorySlugs,
     publishedAt: g.publishedAt.toISOString().slice(0, 10),
+    playsCount: g.playsCount,
   };
 }
 

@@ -49,6 +49,11 @@ export function GameCard({
         <p className="mt-1 line-clamp-2 text-sm text-zinc-400">
           {game.tagline[locale]}
         </p>
+        {(game.playsCount ?? 0) > 0 && (
+          <p className="mt-2 text-xs text-zinc-600">
+            {game.playsCount!.toLocaleString()} {locale === 'es' ? 'partidas' : 'plays'}
+          </p>
+        )}
       </div>
     </Link>
   );

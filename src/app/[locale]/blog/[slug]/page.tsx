@@ -76,7 +76,7 @@ export default async function BlogPostPage({
         ← {lc === 'es' ? 'Volver al blog' : 'Back to blog'}
       </Link>
 
-      <article>
+      <article className="relative">
         <header className="mb-8 border-b border-zinc-800 pb-8">
           <div className="mb-3 flex flex-wrap gap-2">
             {meta.tags.map((tag) => (
@@ -102,6 +102,23 @@ export default async function BlogPostPage({
           <Content />
         </div>
       </article>
+
+      <div className="mt-12 rounded-2xl border border-fuchsia-500/20 bg-gradient-to-br from-fuchsia-950/30 to-cyan-950/30 p-8 text-center">
+        <p className="text-lg font-bold text-white">
+          {lc === 'es' ? '¿Listo para jugar?' : 'Ready to play?'}
+        </p>
+        <p className="mt-2 text-sm text-zinc-400">
+          {lc === 'es'
+            ? 'Explora el catálogo de juegos cooperativos y multijugador, gratis en el navegador.'
+            : 'Browse our catalog of free co-op and multiplayer browser games.'}
+        </p>
+        <Link
+          href="/c/cooperativos"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-fuchsia-500 px-6 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-fuchsia-400"
+        >
+          {lc === 'es' ? 'Ver juegos →' : 'Browse games →'}
+        </Link>
+      </div>
     </main>
   );
 }

@@ -37,6 +37,8 @@ export interface Game {
   categories: string[];
   /** ISO date the game went live in the catalog. */
   publishedAt: string;
+  /** Total play sessions recorded. Optional — may be absent on seed data. */
+  playsCount?: number;
 }
 
 export interface Category {
