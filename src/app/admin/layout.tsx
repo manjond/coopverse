@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { isAdmin } from '@/lib/admin-auth';
 import { LoginForm } from './LoginForm';
 import { logout } from './actions';
+import '../globals.css';
 
 /**
  * Admin layout. Sits OUTSIDE the [locale] segment — admin is operator-

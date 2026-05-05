@@ -12,6 +12,7 @@ import {
   projectGame,
 } from '@/db/queries';
 import { AdSlot } from '@/components/AdSlot';
+import { safeJsonLd } from '@/lib/safe-json-ld';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -100,7 +101,7 @@ export default async function GameDetailPage({
     <main className="mx-auto max-w-5xl flex-1 px-4 py-10 sm:px-6">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
 
       <header className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-start">

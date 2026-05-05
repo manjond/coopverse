@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getPostBySlug, getAllSlugsForLocale } from '@/content/blog/registry';
+import { safeJsonLd } from '@/lib/safe-json-ld';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/data/types';
 
@@ -65,7 +66,7 @@ export default async function BlogPostPage({
     <main className="mx-auto max-w-3xl flex-1 px-4 py-12 sm:px-6">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
 
       <Link

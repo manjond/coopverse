@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { GameCard } from '@/components/GameCard';
 import { COMBOS, comboBySlug } from '@/data/combos';
 import { getGamesByCategoryAndPlayers, projectGame } from '@/db/queries';
+import { safeJsonLd } from '@/lib/safe-json-ld';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -88,7 +89,7 @@ export default async function ComboPage({
     <main className="mx-auto max-w-6xl flex-1 px-4 py-10 sm:px-6">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
 
       <header className="mb-8 border-b border-zinc-800 pb-6">

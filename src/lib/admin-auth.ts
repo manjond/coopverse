@@ -2,15 +2,10 @@ import { cookies } from 'next/headers';
 import { createHmac, timingSafeEqual } from 'crypto';
 
 /**
- * Single-admin cookie auth — minimal but resistant to cookie tampering.
+ * Single-admin cookie auth — resistant to cookie tampering and timing attacks.
  * Cookie value = `${ts}.${hmac(ts, ADMIN_PASSWORD)}` where ts is unix ms.
  * On verify we recompute the HMAC and compare timing-safely; cookies
  * older than 30 days are rejected so a stolen value eventually expires.
- *
- * Caveats:
- *   - Single shared admin (no per-user accounts).
- *   - If you rotate ADMIN_PASSWORD, all sessions invalidate.
- *   - For multi-admin setups, swap this for Clerk roles in Step 17/19.
  */
 
 const COOKIE_NAME = 'coopverse_admin';
@@ -47,11 +42,19 @@ export async function isAdmin(): Promise<boolean> {
   }
 }
 
+/**
+ * Timing-safe password check.
+ * Both inputs are hashed with HMAC-SHA256 before comparison so the buffers
+ * are always the same length — eliminating the length-based timing leak that
+ * would occur if we compared the raw strings or checked length first.
+ */
 export function checkPassword(input: string): boolean {
   if (!input) return false;
   const expected = secret();
-  if (input.length !== expected.length) return false;
-  return timingSafeEqual(Buffer.from(input), Buffer.from(expected));
+  const salt = 'coopverse_pw_compare';
+  const inputHash = createHmac('sha256', salt).update(input).digest();
+  const expectedHash = createHmac('sha256', salt).update(expected).digest();
+  return timingSafeEqual(inputHash, expectedHash);
 }
 
 export const ADMIN_COOKIE = COOKIE_NAME;

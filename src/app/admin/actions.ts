@@ -19,9 +19,8 @@ import {
 export async function login(formData: FormData) {
   const password = String(formData.get('password') ?? '');
   if (!checkPassword(password)) {
-    // Server actions can't easily return an error to a client form
-    // without state — for the MVP we just fall back to redirecting to
-    // the login page (the form re-renders blank, which signals failure).
+    // Artificial delay makes password brute-forcing ~1000x slower.
+    await new Promise((r) => setTimeout(r, 1000));
     redirect('/admin?e=1');
   }
   (await cookies()).set(ADMIN_COOKIE, makeCookieValue(), {
@@ -45,14 +44,43 @@ async function requireAdmin() {
   if (!(await isAdmin())) redirect('/admin');
 }
 
+/* ── Input validation ─────────────────────────────────────────────────────── */
+
+function validateSlug(slug: string): string {
+  if (!slug) throw new Error('Slug is required');
+  if (!/^[a-z0-9-]+$/.test(slug))
+    throw new Error('Slug must contain only lowercase letters, numbers, and hyphens');
+  if (slug.length > 96) throw new Error('Slug is too long');
+  return slug;
+}
+
+function validateUrl(url: string, field: string): string {
+  if (!url) throw new Error(`${field} is required`);
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new Error(`${field} is not a valid URL`);
+  }
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:')
+    throw new Error(`${field} must use http or https`);
+  return url;
+}
+
+function validateOptionalUrl(url: string, field: string): string {
+  if (!url || url === '/thumbs/placeholder.svg') return url;
+  return validateUrl(url, field);
+}
+
 /* ── Games ────────────────────────────────────────────────────────────────── */
 
 export async function createGame(formData: FormData) {
   await requireAdmin();
   const f = (k: string) => String(formData.get(k) ?? '').trim();
 
-  const slug = f('slug');
-  if (!slug) throw new Error('slug required');
+  const slug = validateSlug(f('slug'));
+  const embedUrl = validateUrl(f('embedUrl'), 'Embed URL');
+  const thumbUrl = validateOptionalUrl(f('thumbUrl') || '/thumbs/placeholder.svg', 'Thumbnail URL');
 
   await db.insert(games).values({
     slug,
@@ -66,8 +94,8 @@ export async function createGame(formData: FormData) {
     descriptionEn: f('descriptionEn'),
     instructionsEs: f('instructionsEs') || '—',
     instructionsEn: f('instructionsEn') || '—',
-    embedUrl: f('embedUrl'),
-    thumbUrl: f('thumbUrl') || '/thumbs/placeholder.svg',
+    embedUrl,
+    thumbUrl,
     minPlayers: Number(formData.get('minPlayers') ?? 1),
     maxPlayers: Number(formData.get('maxPlayers') ?? 1),
     categorySlugs: f('categorySlugs')
@@ -85,6 +113,9 @@ export async function updateGame(slug: string, formData: FormData) {
   await requireAdmin();
   const f = (k: string) => String(formData.get(k) ?? '').trim();
 
+  const embedUrl = validateUrl(f('embedUrl'), 'Embed URL');
+  const thumbUrl = validateOptionalUrl(f('thumbUrl') || '/thumbs/placeholder.svg', 'Thumbnail URL');
+
   await db
     .update(games)
     .set({
@@ -97,8 +128,8 @@ export async function updateGame(slug: string, formData: FormData) {
       descriptionEn: f('descriptionEn'),
       instructionsEs: f('instructionsEs') || '—',
       instructionsEn: f('instructionsEn') || '—',
-      embedUrl: f('embedUrl'),
-      thumbUrl: f('thumbUrl') || '/thumbs/placeholder.svg',
+      embedUrl,
+      thumbUrl,
       minPlayers: Number(formData.get('minPlayers') ?? 1),
       maxPlayers: Number(formData.get('maxPlayers') ?? 1),
       categorySlugs: f('categorySlugs')
