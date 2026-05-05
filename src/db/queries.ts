@@ -1,6 +1,6 @@
-import { eq, desc, sql, asc } from 'drizzle-orm';
+import { eq, desc, sql, asc, inArray } from 'drizzle-orm';
 import { db } from './client';
-import { categories, games, type Game, type Category } from './schema';
+import { categories, favorites, games, type Game, type Category } from './schema';
 import type { Locale } from '@/data/types';
 
 /**
@@ -56,6 +56,21 @@ export async function getGamesByCategory(categorySlug: string): Promise<Game[]> 
     .orderBy(desc(games.featured), desc(games.publishedAt));
 }
 
+/** Filter by category + max player count (for programmatic SEO combo pages). */
+export async function getGamesByCategoryAndPlayers(
+  categorySlug: string,
+  maxPlayers: number,
+): Promise<Game[]> {
+  return db
+    .select()
+    .from(games)
+    .where(
+      sql`${games.categorySlugs} @> ARRAY[${categorySlug}]::text[]
+          AND ${games.maxPlayers} <= ${maxPlayers}`,
+    )
+    .orderBy(desc(games.featured), desc(games.publishedAt));
+}
+
 export async function getRelatedGames(currentSlug: string, categorySlug: string, limit = 4) {
   return db
     .select()
@@ -65,6 +80,22 @@ export async function getRelatedGames(currentSlug: string, categorySlug: string,
           AND ${games.slug} <> ${currentSlug}`,
     )
     .limit(limit);
+}
+
+// ─── Favorites ───────────────────────────────────────────────────────────────
+
+export async function getUserFavoriteSlugs(userId: string): Promise<string[]> {
+  const rows = await db
+    .select({ gameSlug: favorites.gameSlug })
+    .from(favorites)
+    .where(eq(favorites.userId, userId));
+  return rows.map((r) => r.gameSlug);
+}
+
+export async function getUserFavoriteGames(userId: string): Promise<Game[]> {
+  const slugs = await getUserFavoriteSlugs(userId);
+  if (slugs.length === 0) return [];
+  return db.select().from(games).where(inArray(games.slug, slugs));
 }
 
 // ─── Locale projection helpers ───────────────────────────────────────────────

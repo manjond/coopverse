@@ -1,13 +1,22 @@
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import type { Game, Locale } from '@/data/types';
+import { FavoriteButton } from './FavoriteButton';
 
 /**
  * Catalog card. Used on the home grid, category pages, related-games
  * widgets. Server-renderable: takes a `Game` + active `locale` and
  * outputs a fully static link to /g/[slug].
  */
-export function GameCard({ game, locale }: { game: Game; locale: Locale }) {
+export function GameCard({
+  game,
+  locale,
+  isFavorited = false,
+}: {
+  game: Game;
+  locale: Locale;
+  isFavorited?: boolean;
+}) {
   return (
     <Link
       href={`/g/${game.slug}`}
@@ -31,6 +40,7 @@ export function GameCard({ game, locale }: { game: Game; locale: Locale }) {
             ? `${game.minPlayers}p`
             : `${game.minPlayers}–${game.maxPlayers}p`}
         </span>
+        <FavoriteButton gameSlug={game.slug} initialFavorited={isFavorited} />
       </div>
       <div className="flex flex-1 flex-col p-4">
         <h3 className="text-base font-semibold text-zinc-100 group-hover:text-white">

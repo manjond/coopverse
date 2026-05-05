@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { AuthButtons } from './AuthButtons';
 
 /**
  * Site-wide top navigation. Server component — no client interactivity
@@ -14,6 +15,7 @@ export async function Header() {
     { href: '/c/cooperativos', label: t('categories') },
     { href: '/c/multijugador', label: t('trending') },
     { href: '/blog',           label: t('blog') },
+    { href: '/perfil',         label: t('profile') },
   ];
 
   return (
@@ -40,7 +42,10 @@ export async function Header() {
           ))}
         </div>
 
-        <LocaleSwitcher />
+        <div className="flex items-center gap-3">
+          <AuthButtons />
+          <LocaleSwitcher />
+        </div>
       </nav>
     </header>
   );

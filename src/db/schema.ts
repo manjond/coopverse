@@ -8,6 +8,7 @@ import {
   timestamp,
   numeric,
   index,
+  uniqueIndex,
 } from 'drizzle-orm/pg-core';
 
 /**
@@ -78,7 +79,21 @@ export const games = pgTable(
   }),
 );
 
+export const favorites = pgTable(
+  'favorites',
+  {
+    id: serial('id').primaryKey(),
+    userId: varchar('user_id', { length: 64 }).notNull(),
+    gameSlug: varchar('game_slug', { length: 96 }).notNull(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+  },
+  (t) => ({
+    userGameUniq: uniqueIndex('favorites_user_game_uniq').on(t.userId, t.gameSlug),
+  }),
+);
+
 export type Game = typeof games.$inferSelect;
 export type NewGame = typeof games.$inferInsert;
 export type Category = typeof categories.$inferSelect;
 export type NewCategory = typeof categories.$inferInsert;
+export type Favorite = typeof favorites.$inferSelect;
