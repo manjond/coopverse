@@ -19,5 +19,6 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  // Exclude api, admin, _next, _vercel, and any path with a file extension.
+  matcher: ['/((?!api|admin|_next|_vercel|.*\\..*).*)'],
 };
