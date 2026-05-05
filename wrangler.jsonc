@@ -26,9 +26,5 @@
     "NEXT_PUBLIC_SITE_URL": "https://coopverse.io",
     "NEXT_PUBLIC_PIKOPARK_URL": "https://pikopark-online.vercel.app",
     "NEXT_PUBLIC_ADSENSE_PUB_ID": "ca-pub-5335855577404641"
-  },
-  "routes": [
-    { "pattern": "coopverse.io/*", "zone_name": "coopverse.io" },
-    { "pattern": "www.coopverse.io/*", "zone_name": "coopverse.io" }
-  ]
+  }
 }
