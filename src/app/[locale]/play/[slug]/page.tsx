@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getAllGames, getGameBySlug, projectGame } from '@/db/queries';
+import { PlayTracker } from '@/components/PlayTracker';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -33,6 +34,7 @@ export default async function PlayPage({
 
   return (
     <div className="flex flex-1 flex-col bg-zinc-950">
+      <PlayTracker slug={game.slug} />
       <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2 text-sm">
         <Link
           href={`/g/${game.slug}`}
