@@ -58,11 +58,7 @@ export default async function PlayPage({
           src={game.embedUrl}
           title={game.title[lc]}
           className="h-[calc(100vh-100px)] w-full border-0"
-          allow="fullscreen; autoplay; gamepad; pointer-lock"
-          // sandbox: allow scripts + same-origin (needed by most games for
-          // localStorage/audio), but block top-navigation so a malicious game
-          // can't redirect the parent window to a phishing page.
-          sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-presentation"
+          allow="fullscreen; autoplay; gamepad; pointer-lock; microphone; clipboard-read; clipboard-write"
         />
       </div>
     </div>
