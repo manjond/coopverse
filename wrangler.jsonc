@@ -21,5 +21,9 @@
   },
   "observability": {
     "enabled": true
+  },
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://coopverse.io",
+    "NEXT_PUBLIC_PIKOPARK_URL": "https://pikopark-online.vercel.app"
   }
 }
