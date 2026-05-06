@@ -59,7 +59,11 @@ export default async function LocaleLayout({
   const tCookies = await getTranslations('Cookies');
 
   return (
-    <ClerkProvider publishableKey={CLERK_PK}>
+    <ClerkProvider
+      publishableKey={CLERK_PK}
+      signInUrl={`/${locale}/sign-in`}
+      signUpUrl={`/${locale}/sign-up`}
+    >
       <html
         lang={locale}
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}

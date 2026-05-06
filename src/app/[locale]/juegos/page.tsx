@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { GameCard } from '@/components/GameCard';
-import { getAllGames, projectGame } from '@/db/queries';
+import { getAllGames, getAllCategories, projectGame, projectCategory } from '@/db/queries';
+import { GamesGrid } from './GamesGrid';
 import type { Locale } from '@/data/types';
 
 export const revalidate = 3600;
@@ -22,12 +23,13 @@ export default async function AllGamesPage({
   setRequestLocale(locale);
   const lc = locale as Locale;
 
-  const rows = await getAllGames();
+  const [rows, catRows] = await Promise.all([getAllGames(), getAllCategories()]);
   const games = rows.map(projectGame);
+  const categories = catRows.map(projectCategory);
 
   return (
     <main className="mx-auto max-w-6xl flex-1 px-4 py-10 sm:px-6">
-      <header className="mb-8 border-b border-zinc-800 pb-6">
+      <header className="mb-8">
         <h1 className="text-3xl font-bold text-white sm:text-4xl">
           {lc === 'es' ? 'Todos los juegos' : 'All games'}
         </h1>
@@ -38,11 +40,7 @@ export default async function AllGamesPage({
         </p>
       </header>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {games.map((g) => (
-          <GameCard key={g.slug} game={g} locale={lc} />
-        ))}
-      </div>
+      <GamesGrid games={games} categories={categories} locale={lc} />
     </main>
   );
 }

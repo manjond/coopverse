@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.crazygames.com' },
       { protocol: 'https', hostname: '**.gamedistribution.com' },
       { protocol: 'https', hostname: '**.itch.zone' },
+      { protocol: 'https', hostname: 'ev.io' },
+      { protocol: 'https', hostname: 'sketchful.io' },
+      { protocol: 'https', hostname: 'www.shellshock.io' },
+      { protocol: 'https', hostname: 'wormate.io' },
+      { protocol: 'https', hostname: 'surviv.io' },
     ],
   },
 };
