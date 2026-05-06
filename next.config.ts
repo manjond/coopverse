@@ -5,8 +5,6 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   images: {
-    // Cloudflare Pages doesn't run the Next.js image optimization server.
-    // Serve images as-is; Cloudflare's CDN handles caching.
     unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'imgs.crazygames.com' },
@@ -20,8 +18,28 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'surviv.io' },
     ],
   },
+  // Security headers served by Vercel (replaces public/_headers which is Cloudflare-only)
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options',  value: 'nosniff' },
+          { key: 'X-Frame-Options',          value: 'SAMEORIGIN' },
+          { key: 'Referrer-Policy',          value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy',       value: 'camera=(), microphone=(), geolocation=(), payment=()' },
+          { key: 'Strict-Transport-Security',value: 'max-age=31536000; includeSubDomains; preload' },
+        ],
+      },
+      {
+        source: '/admin/:path*',
+        headers: [
+          { key: 'X-Robots-Tag',    value: 'noindex, nofollow' },
+          { key: 'Cache-Control',   value: 'no-store, no-cache, must-revalidate' },
+        ],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
-
-import('@opennextjs/cloudflare').then(m => m.initOpenNextCloudflareForDev());
