@@ -11,8 +11,6 @@ import {
 import { getPostsByLocale } from '@/content/blog/registry';
 import type { Locale } from '@/data/types';
 
-export const revalidate = 3600; // CDN caches for 1h — RSC navigations served from edge
-
 export default async function Home({
   params,
 }: {

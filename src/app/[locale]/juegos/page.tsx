@@ -5,8 +5,6 @@ import { getAllGames, getAllCategories, projectGame, projectCategory } from '@/d
 import { GamesGrid } from './GamesGrid';
 import type { Locale } from '@/data/types';
 
-export const revalidate = 3600;
-
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
   const lc = params.locale as Locale;
   return lc === 'es'

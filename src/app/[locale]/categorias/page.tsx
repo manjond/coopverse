@@ -4,8 +4,6 @@ import { Link } from '@/i18n/navigation';
 import { getAllCategories, getAllGames, projectCategory } from '@/db/queries';
 import type { Locale } from '@/data/types';
 
-export const revalidate = 3600;
-
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
   return params.locale === 'es'
     ? { title: 'Categorías de juegos', description: 'Explora todas las categorías de juegos cooperativos y multijugador en Coopverse.' }

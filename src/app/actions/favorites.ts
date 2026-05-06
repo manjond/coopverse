@@ -2,11 +2,14 @@
 
 import { auth } from '@clerk/nextjs/server';
 import { and, eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
 import { db } from '@/db/client';
 import { favorites } from '@/db/schema';
 
+const SLUG_RE = /^[a-z0-9-]{1,96}$/;
+
 export async function toggleFavorite(gameSlug: string): Promise<{ favorited: boolean }> {
+  if (!SLUG_RE.test(gameSlug)) throw new Error('Invalid game slug');
+
   const { userId } = await auth();
   if (!userId) throw new Error('Debes iniciar sesión para guardar favoritos.');
 
@@ -20,11 +23,9 @@ export async function toggleFavorite(gameSlug: string): Promise<{ favorited: boo
     await db
       .delete(favorites)
       .where(and(eq(favorites.userId, userId), eq(favorites.gameSlug, gameSlug)));
-    revalidatePath('/');
     return { favorited: false };
   }
 
   await db.insert(favorites).values({ userId, gameSlug });
-  revalidatePath('/');
   return { favorited: true };
 }
