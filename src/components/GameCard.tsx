@@ -34,7 +34,7 @@ export function GameCard({
         <div className="absolute left-2 top-2 flex gap-1">
           {game.featured && (
             <span className="rounded-md bg-amber-400/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-950">
-              ★ Featured
+              ★ {locale === 'es' ? 'Destacado' : 'Featured'}
             </span>
           )}
           {isNew && !game.featured && (

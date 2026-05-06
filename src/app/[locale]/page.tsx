@@ -25,7 +25,9 @@ export default async function Home({
     getPopularGames(8),
     getAllCategories(),
   ]);
+  // First featured = hero spotlight; rest = top picks bar
   const featured = featuredRows[0] ? projectGame(featuredRows[0]) : null;
+  const topPicks = featuredRows.slice(1, 4).map(projectGame);
   const popular = popularRows.map(projectGame);
   const allCategories = categoryRows.map(projectCategory);
   const lc = locale as Locale;
@@ -142,6 +144,50 @@ export default async function Home({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Top picks bar */}
+      {topPicks.length > 0 && (
+        <section className="border-y border-zinc-800/50 bg-zinc-900/30 px-4 py-6 sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
+                {lc === 'es' ? '🔥 Top picks' : '🔥 Top picks'}
+              </h2>
+              <Link href="/juegos" className="text-xs text-cyan-400 hover:text-cyan-300">
+                {lc === 'es' ? 'Ver todos →' : 'See all →'}
+              </Link>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {topPicks.map((g) => (
+                <Link
+                  key={g.slug}
+                  href={`/play/${g.slug}`}
+                  className="group relative flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/40 p-3 transition hover:border-fuchsia-500/40 hover:bg-zinc-900/70"
+                >
+                  <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-lg bg-zinc-800">
+                    <img
+                      src={g.thumbUrl}
+                      alt={g.title[lc]}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-zinc-100 group-hover:text-white">
+                      {g.title[lc]}
+                    </p>
+                    <p className="mt-0.5 truncate text-xs text-zinc-500">
+                      {g.minPlayers}–{g.maxPlayers}p · {g.tagline[lc]}
+                    </p>
+                    <span className="mt-1 inline-block rounded bg-fuchsia-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-300">
+                      ▶ {lc === 'es' ? 'Jugar' : 'Play'}
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
