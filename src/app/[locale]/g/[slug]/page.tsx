@@ -14,6 +14,8 @@ import {
 import { AdSlot } from '@/components/AdSlot';
 import { safeJsonLd } from '@/lib/safe-json-ld';
 import { getPostsByLocale } from '@/content/blog/registry';
+import { StarRating } from '@/components/StarRating';
+import { ShareButton } from '@/components/ShareButton';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -144,12 +146,23 @@ export default async function GameDetailPage({
           </div>
         </div>
 
-        <Link
-          href={`/play/${game.slug}`}
-          className="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-fuchsia-500 px-8 py-4 text-lg font-bold text-zinc-950 shadow-lg shadow-cyan-500/20 transition hover:from-cyan-300 hover:to-fuchsia-400"
-        >
-          ▶ {tHome('ctaPlayNow')}
-        </Link>
+        <div className="flex flex-col gap-3">
+          <Link
+            href={`/play/${game.slug}`}
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-fuchsia-500 px-8 py-4 text-lg font-bold text-zinc-950 shadow-lg shadow-cyan-500/20 transition hover:from-cyan-300 hover:to-fuchsia-400"
+          >
+            ▶ {tHome('ctaPlayNow')}
+          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <ShareButton title={game.title[lc]} locale={locale} />
+            <div>
+              <p className="mb-1 text-xs text-zinc-500">
+                {lc === 'es' ? 'Valora' : 'Rate'}
+              </p>
+              <StarRating gameSlug={game.slug} initialRating={null} locale={locale} />
+            </div>
+          </div>
+        </div>
       </header>
 
       <section className="mt-10 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 sm:p-8">

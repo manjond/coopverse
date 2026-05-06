@@ -3,11 +3,8 @@ import { Link } from '@/i18n/navigation';
 import type { Game, Locale } from '@/data/types';
 import { FavoriteButton } from './FavoriteButton';
 
-/**
- * Catalog card. Used on the home grid, category pages, related-games
- * widgets. Server-renderable: takes a `Game` + active `locale` and
- * outputs a fully static link to /g/[slug].
- */
+const NEW_DAYS = 14; // games added within this window get the "NUEVO" badge
+
 export function GameCard({
   game,
   locale,
@@ -17,6 +14,10 @@ export function GameCard({
   locale: Locale;
   isFavorited?: boolean;
 }) {
+  const isNew = game.publishedAt
+    ? (Date.now() - new Date(game.publishedAt).getTime()) < NEW_DAYS * 86_400_000
+    : false;
+
   return (
     <Link
       href={`/g/${game.slug}`}
@@ -30,11 +31,18 @@ export function GameCard({
           sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover transition group-hover:scale-105"
         />
-        {game.featured && (
-          <span className="absolute left-2 top-2 rounded-md bg-amber-400/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-950">
-            ★ Featured
-          </span>
-        )}
+        <div className="absolute left-2 top-2 flex gap-1">
+          {game.featured && (
+            <span className="rounded-md bg-amber-400/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-950">
+              ★ Featured
+            </span>
+          )}
+          {isNew && !game.featured && (
+            <span className="rounded-md bg-cyan-500/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-950">
+              {locale === 'es' ? 'Nuevo' : 'New'}
+            </span>
+          )}
+        </div>
         <span className="absolute right-2 top-2 rounded-md bg-zinc-950/80 px-2 py-0.5 text-[10px] font-medium text-zinc-200">
           {game.minPlayers === game.maxPlayers
             ? `${game.minPlayers}p`

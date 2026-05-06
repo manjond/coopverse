@@ -3,6 +3,8 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getAllGames, getGameBySlug, projectGame } from '@/db/queries';
 import { PlayTracker } from '@/components/PlayTracker';
+import { FullscreenButton } from '@/components/FullscreenButton';
+import { ShareButton } from '@/components/ShareButton';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
 
@@ -34,7 +36,7 @@ export default async function PlayPage({
 
   return (
     <div className="flex flex-1 flex-col bg-zinc-950">
-      <PlayTracker slug={game.slug} />
+      <PlayTracker slug={game.slug} title={game.title[lc]} />
       <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2 text-sm">
         <Link
           href={`/g/${game.slug}`}
@@ -43,17 +45,21 @@ export default async function PlayPage({
           ← {tPlay('backToCatalog')}
         </Link>
         <span className="font-semibold text-zinc-200">{game.title[lc]}</span>
-        <a
-          href={game.embedUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-md border border-zinc-700 px-3 py-1 text-xs text-zinc-300 transition hover:border-zinc-500"
-        >
-          {tPlay('openInNewTab')} ↗
-        </a>
+        <div className="flex items-center gap-2">
+          <ShareButton title={game.title[lc]} locale={locale} />
+          <FullscreenButton targetId="game-iframe" locale={locale} />
+          <a
+            href={game.embedUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md border border-zinc-700 px-3 py-1 text-xs text-zinc-300 transition hover:border-zinc-500"
+          >
+            ↗
+          </a>
+        </div>
       </div>
 
-      <div className="flex-1 bg-black">
+      <div id="game-iframe" className="flex-1 bg-black">
         <iframe
           src={game.embedUrl}
           title={game.title[lc]}

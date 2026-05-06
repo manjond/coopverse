@@ -2,6 +2,7 @@ import { auth, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { GameCard } from '@/components/GameCard';
+import { RecentlyPlayed } from '@/components/RecentlyPlayed';
 import { getUserFavoriteGames, projectGame } from '@/db/queries';
 import type { Locale } from '@/data/types';
 
@@ -47,6 +48,8 @@ export default async function PerfilPage({
           </div>
         </div>
       </header>
+
+      <RecentlyPlayed locale={lc} />
 
       {games.length === 0 ? (
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-10 text-center">

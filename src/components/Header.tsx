@@ -12,10 +12,9 @@ export async function Header() {
   const t = await getTranslations('Nav');
 
   const links = [
-    { href: '/juegos',         label: t('allGames') },
-    { href: '/c/cooperativos', label: t('categories') },
-    { href: '/c/multijugador', label: t('trending') },
-    { href: '/blog',           label: t('blog') },
+    { href: '/juegos',      label: t('allGames') },
+    { href: '/categorias',  label: t('categories') },
+    { href: '/blog',        label: t('blog') },
   ];
 
   return (

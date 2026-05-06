@@ -4,11 +4,6 @@ import { useAuth, UserButton } from '@clerk/nextjs';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
-/**
- * Auth controls for the header.
- * Uses redirect (not modal) so it works even if Clerk JS loads slowly.
- * Shows sign-in link when logged out, user avatar when logged in.
- */
 export function AuthButtons() {
   const { isSignedIn, isLoaded } = useAuth();
   const params = useParams();
@@ -20,18 +15,14 @@ export function AuthButtons() {
 
   if (isSignedIn) {
     return (
-      <UserButton
-        appearance={{
-          elements: { avatarBox: 'h-8 w-8' },
-        }}
-      />
+      <UserButton appearance={{ elements: { avatarBox: 'h-8 w-8' } }} />
     );
   }
 
   return (
     <Link
       href={`/${locale}/sign-in`}
-      className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm font-medium text-zinc-300 transition hover:border-cyan-500/60 hover:text-white"
+      className="rounded-lg border border-zinc-600 bg-zinc-800 px-3 py-1.5 text-sm font-semibold text-white transition hover:border-cyan-500 hover:bg-zinc-700"
     >
       Entrar
     </Link>

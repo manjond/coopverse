@@ -79,6 +79,20 @@ export const games = pgTable(
   }),
 );
 
+export const ratings = pgTable(
+  'ratings',
+  {
+    id: serial('id').primaryKey(),
+    userId: varchar('user_id', { length: 64 }).notNull(),
+    gameSlug: varchar('game_slug', { length: 96 }).notNull(),
+    stars: integer('stars').notNull(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+  },
+  (t) => ({
+    userGameUniq: uniqueIndex('ratings_user_game_uniq').on(t.userId, t.gameSlug),
+  }),
+);
+
 export const favorites = pgTable(
   'favorites',
   {
