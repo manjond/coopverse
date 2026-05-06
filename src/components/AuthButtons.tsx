@@ -1,18 +1,44 @@
 'use client';
 
-import { useAuth, UserButton } from '@clerk/nextjs';
-import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { logout } from '@/app/actions/auth';
 
-export function AuthButtons() {
-  const { isSignedIn, isLoaded } = useAuth();
-  const params = useParams();
-  const locale = (params?.locale as string) ?? 'es';
+function readDisplayCookie(): string | null {
+  try {
+    const match = document.cookie.split(';').find((c) => c.trim().startsWith('cv_display='));
+    if (!match) return null;
+    const val = decodeURIComponent(match.split('=').slice(1).join('='));
+    return JSON.parse(val)?.name ?? null;
+  } catch {
+    return null;
+  }
+}
 
-  // Show avatar only once Clerk confirms signed-in state.
-  // In all other cases (loading, not signed in, Clerk JS failure) show the link.
-  if (isLoaded && isSignedIn) {
-    return <UserButton appearance={{ elements: { avatarBox: 'h-8 w-8' } }} />;
+export function AuthButtons({ locale }: { locale: string }) {
+  const [name, setName] = useState<string | null>(null);
+
+  useEffect(() => {
+    setName(readDisplayCookie());
+  }, []);
+
+  if (name) {
+    return (
+      <div className="flex items-center gap-2">
+        <Link
+          href={`/${locale}/perfil`}
+          className="h-8 w-8 grid place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-fuchsia-500 text-sm font-bold text-zinc-950"
+          title={name}
+        >
+          {name[0].toUpperCase()}
+        </Link>
+        <form action={logout}>
+          <button className="text-xs text-zinc-500 hover:text-zinc-300 transition">
+            {locale === 'es' ? 'Salir' : 'Out'}
+          </button>
+        </form>
+      </div>
+    );
   }
 
   return (

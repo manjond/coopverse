@@ -5,6 +5,7 @@ import { db } from '@/db/client';
 import { games } from '@/db/schema';
 
 export async function incrementPlayCount(slug: string): Promise<void> {
+  if (!/^[a-z0-9-]{1,96}$/.test(slug)) return;
   await db
     .update(games)
     .set({ playsCount: sql`${games.playsCount} + 1` })

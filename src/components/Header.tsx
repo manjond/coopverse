@@ -3,18 +3,15 @@ import { Link } from '@/i18n/navigation';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { AuthButtons } from './AuthButtons';
 
-/**
- * Site-wide top navigation. Server component — no client interactivity
- * needed beyond the LocaleSwitcher (which is client-side because it
- * needs the current pathname).
- */
-export async function Header() {
+// Server component — no getSession() here so pages stay statically rendered.
+// AuthButtons reads the cv_display cookie client-side after hydration.
+export async function Header({ locale }: { locale: string }) {
   const t = await getTranslations('Nav');
 
   const links = [
-    { href: '/juegos',      label: t('allGames') },
-    { href: '/categorias',  label: t('categories') },
-    { href: '/blog',        label: t('blog') },
+    { href: '/juegos',     label: t('allGames') },
+    { href: '/categorias', label: t('categories') },
+    { href: '/blog',       label: t('blog') },
   ];
 
   return (
@@ -42,7 +39,7 @@ export async function Header() {
         </div>
 
         <div className="flex items-center gap-3">
-          <AuthButtons />
+          <AuthButtons locale={locale} />
           <LocaleSwitcher />
         </div>
       </nav>

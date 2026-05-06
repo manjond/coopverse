@@ -1,8 +1,15 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { useAuth } from '@clerk/nextjs';
+import { useEffect, useState, useTransition } from 'react';
 import { toggleFavorite } from '@/app/actions/favorites';
+
+function isLoggedInClient(): boolean {
+  try {
+    return document.cookie.includes('cv_display=');
+  } catch {
+    return false;
+  }
+}
 
 export function FavoriteButton({
   gameSlug,
@@ -11,16 +18,18 @@ export function FavoriteButton({
   gameSlug: string;
   initialFavorited: boolean;
 }) {
-  const { isSignedIn } = useAuth();
   const [favorited, setFavorited] = useState(initialFavorited);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  // When not signed in, show a non-interactive ghost heart.
-  // pointer-events-none ensures the card link still works — no click blocked.
-  if (!isSignedIn) {
+  useEffect(() => {
+    setLoggedIn(isLoggedInClient());
+  }, []);
+
+  if (!loggedIn) {
     return (
       <span
-        className="absolute bottom-2 right-2 grid h-8 w-8 place-items-center rounded-full bg-zinc-950/70 text-base text-zinc-500 backdrop-blur pointer-events-none"
+        className="absolute bottom-2 right-2 grid h-8 w-8 place-items-center rounded-full bg-zinc-950/70 text-base text-zinc-600 backdrop-blur pointer-events-none"
         aria-hidden
       >
         ♡
