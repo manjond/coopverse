@@ -9,14 +9,10 @@ export function AuthButtons() {
   const params = useParams();
   const locale = (params?.locale as string) ?? 'es';
 
-  if (!isLoaded) {
-    return <div className="h-8 w-16 animate-pulse rounded-lg bg-zinc-800" />;
-  }
-
-  if (isSignedIn) {
-    return (
-      <UserButton appearance={{ elements: { avatarBox: 'h-8 w-8' } }} />
-    );
+  // Show avatar only once Clerk confirms signed-in state.
+  // In all other cases (loading, not signed in, Clerk JS failure) show the link.
+  if (isLoaded && isSignedIn) {
+    return <UserButton appearance={{ elements: { avatarBox: 'h-8 w-8' } }} />;
   }
 
   return (
