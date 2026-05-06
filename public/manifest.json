@@ -1,0 +1,17 @@
+{
+  "name": "Coopverse",
+  "short_name": "Coopverse",
+  "description": "Juegos cooperativos y multijugador gratis en el navegador",
+  "start_url": "/es",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/apple-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

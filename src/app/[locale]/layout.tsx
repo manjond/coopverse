@@ -36,6 +36,11 @@ export async function generateMetadata({
         routing.locales.map((l) => [l, `/${l}`]),
       ),
     },
+    icons: {
+      icon: '/icon.svg',
+      apple: '/apple-icon.svg',
+    },
+    manifest: '/manifest.json',
   };
 }
 
