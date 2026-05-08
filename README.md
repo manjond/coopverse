@@ -2,7 +2,7 @@
 
 Multilingual portal of cooperative & multiplayer browser games. Spanish-first, English-ready.
 
-🌐 https://coopverse.io (live once deployed)
+🌐 https://www.coopverse.io (live once deployed)
 
 ## Stack
 

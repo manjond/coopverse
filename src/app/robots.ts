@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
-
-const BASE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coopverse.io').replace(/\/$/, '');
+import { absoluteUrl } from '@/lib/site';
 
 /**
  * robots.txt — open to all crawlers, exclude /admin and /play
@@ -14,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin', '/api', '/*/play/'],
     },
-    sitemap: `${BASE}/sitemap.xml`,
+    sitemap: absoluteUrl('/sitemap.xml'),
   };
 }

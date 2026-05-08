@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { GameCard } from '@/components/GameCard';
@@ -10,6 +11,18 @@ import {
 } from '@/db/queries';
 import { getPostsByLocale } from '@/content/blog/registry';
 import type { Locale } from '@/data/types';
+import { localeAlternates } from '@/lib/site';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    alternates: localeAlternates(locale),
+  };
+}
 
 export default async function Home({
   params,

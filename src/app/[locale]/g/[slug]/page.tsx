@@ -18,6 +18,7 @@ import { StarRating } from '@/components/StarRating';
 import { ShareButton } from '@/components/ShareButton';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
+import { localeAlternates } from '@/lib/site';
 
 export async function generateStaticParams() {
   const all = await getAllGames();
@@ -45,12 +46,7 @@ export async function generateMetadata({
       images: [game.thumbUrl],
       type: 'website',
     },
-    alternates: {
-      canonical: `/${locale}/g/${slug}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/g/${slug}`]),
-      ),
-    },
+    alternates: localeAlternates(locale, `/g/${slug}`),
   };
 }
 

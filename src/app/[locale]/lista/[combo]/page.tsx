@@ -8,6 +8,7 @@ import { getGamesByCategoryAndPlayers, projectGame } from '@/db/queries';
 import { safeJsonLd } from '@/lib/safe-json-ld';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
+import { absoluteUrl, localeAlternates } from '@/lib/site';
 
 /**
  * Programmatic SEO pages — /[locale]/lista/[combo].
@@ -33,23 +34,19 @@ export function generateStaticParams() {
   );
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { locale: string; combo: string };
-}): Metadata {
-  const combo = comboBySlug(params.combo);
+  params: Promise<{ locale: string; combo: string }>;
+}): Promise<Metadata> {
+  const { locale, combo: comboSlug } = await params;
+  const combo = comboBySlug(comboSlug);
   if (!combo) return {};
-  const lc = params.locale as Locale;
+  const lc = locale as Locale;
   return {
     title: combo.title[lc],
     description: combo.description[lc],
-    alternates: {
-      canonical: `/${params.locale}/lista/${combo.slug}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/lista/${combo.slug}`]),
-      ),
-    },
+    alternates: localeAlternates(locale, `/lista/${combo.slug}`),
   };
 }
 
@@ -81,7 +78,7 @@ export default async function ComboPage({
       '@type': 'ListItem',
       position: i + 1,
       name: g.title[lc],
-      url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coopverse.io'}/${locale}/g/${g.slug}`,
+      url: absoluteUrl(`/${locale}/g/${g.slug}`),
     })),
   };
 

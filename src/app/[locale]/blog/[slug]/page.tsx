@@ -6,6 +6,7 @@ import { getPostBySlug, getAllSlugsForLocale } from '@/content/blog/registry';
 import { safeJsonLd } from '@/lib/safe-json-ld';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/data/types';
+import { absoluteUrl, localizedPath } from '@/lib/site';
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -13,18 +14,28 @@ export function generateStaticParams() {
   );
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { locale: string; slug: string };
-}): Metadata {
-  const post = getPostBySlug(params.locale, params.slug);
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const post = getPostBySlug(locale, slug);
   if (!post) return {};
+  const availableLocales = routing.locales.filter((l) => getPostBySlug(l, slug));
+  const xDefaultLocale = availableLocales.includes(routing.defaultLocale)
+    ? routing.defaultLocale
+    : locale;
+  const articlePath = `/blog/${slug}`;
   return {
     title: post.meta.title,
     description: post.meta.description,
     alternates: {
-      canonical: `/${params.locale}/blog/${params.slug}`,
+      canonical: localizedPath(locale, articlePath),
+      languages: Object.fromEntries([
+        ...availableLocales.map((l) => [l, localizedPath(l, articlePath)]),
+        ['x-default', localizedPath(xDefaultLocale, articlePath)],
+      ]),
     },
     openGraph: {
       title: post.meta.title,
@@ -58,7 +69,7 @@ export default async function BlogPostPage({
     publisher: {
       '@type': 'Organization',
       name: 'Coopverse',
-      url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coopverse.io',
+      url: absoluteUrl(),
     },
   };
 

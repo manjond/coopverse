@@ -3,11 +3,18 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getAllCategories, getAllGames, projectCategory } from '@/db/queries';
 import type { Locale } from '@/data/types';
+import { localeAlternates } from '@/lib/site';
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
-  return params.locale === 'es'
-    ? { title: 'Categorías de juegos', description: 'Explora todas las categorías de juegos cooperativos y multijugador en Coopverse.' }
-    : { title: 'Game categories', description: 'Explore all co-op and multiplayer game categories on Coopverse.' };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const alternates = localeAlternates(locale, '/categorias');
+  return locale === 'es'
+    ? { title: 'Categorías de juegos', description: 'Explora todas las categorías de juegos cooperativos y multijugador en Coopverse.', alternates }
+    : { title: 'Game categories', description: 'Explore all co-op and multiplayer game categories on Coopverse.', alternates };
 }
 
 export default async function CategoriasPage({

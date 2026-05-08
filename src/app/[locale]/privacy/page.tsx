@@ -1,7 +1,19 @@
+import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/data/types';
+import { localeAlternates } from '@/lib/site';
 
-export const metadata = { title: 'Privacy' };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Privacy',
+    alternates: localeAlternates(locale, '/privacy'),
+  };
+}
 
 const COPY: Record<Locale, { lastUpdated: string; html: string }> = {
   es: {

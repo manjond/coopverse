@@ -8,6 +8,7 @@ import { routing } from '@/i18n/routing';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CookieBanner } from '@/components/CookieBanner';
+import { getSiteUrl } from '@/lib/site';
 import '../globals.css';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
@@ -27,15 +28,7 @@ export async function generateMetadata({
   return {
     title: { default: t('siteName'), template: `%s · ${t('siteName')}` },
     description: t('description'),
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coopverse.io',
-    ),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}`]),
-      ),
-    },
+    metadataBase: new URL(getSiteUrl()),
     icons: {
       icon: '/icon.svg',
       apple: '/apple-icon.svg',

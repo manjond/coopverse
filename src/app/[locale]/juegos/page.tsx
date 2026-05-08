@@ -1,15 +1,21 @@
 import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
-import { GameCard } from '@/components/GameCard';
 import { getAllGames, getAllCategories, projectGame, projectCategory } from '@/db/queries';
 import { GamesGrid } from './GamesGrid';
 import type { Locale } from '@/data/types';
+import { localeAlternates } from '@/lib/site';
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
-  const lc = params.locale as Locale;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lc = locale as Locale;
+  const alternates = localeAlternates(locale, '/juegos');
   return lc === 'es'
-    ? { title: 'Todos los juegos', description: 'Catálogo completo de juegos cooperativos y multijugador en Coopverse. Gratis, sin descargas.' }
-    : { title: 'All games', description: 'Full catalog of co-op and multiplayer browser games on Coopverse. Free, no downloads.' };
+    ? { title: 'Todos los juegos', description: 'Catálogo completo de juegos cooperativos y multijugador en Coopverse. Gratis, sin descargas.', alternates }
+    : { title: 'All games', description: 'Full catalog of co-op and multiplayer browser games on Coopverse. Free, no downloads.', alternates };
 }
 
 export default async function AllGamesPage({

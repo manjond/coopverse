@@ -11,6 +11,7 @@ import {
 } from '@/db/queries';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
+import { localeAlternates } from '@/lib/site';
 
 /**
  * Pre-render every (locale × category) combination at build time. With
@@ -37,12 +38,7 @@ export async function generateMetadata({
   return {
     title: cat.name[lc],
     description: cat.description[lc],
-    alternates: {
-      canonical: `/${locale}/c/${slug}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/c/${slug}`]),
-      ),
-    },
+    alternates: localeAlternates(locale, `/c/${slug}`),
   };
 }
 

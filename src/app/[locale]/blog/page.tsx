@@ -3,23 +3,28 @@ import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getPostsByLocale } from '@/content/blog/registry';
 import type { Locale } from '@/data/types';
+import { localeAlternates } from '@/lib/site';
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
-}): Metadata {
-  const lc = params.locale as Locale;
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lc = locale as Locale;
+  const alternates = localeAlternates(locale, '/blog');
   return lc === 'es'
     ? {
         title: 'Blog — Guías y artículos sobre juegos cooperativos',
         description:
           'Guías, listas y artículos sobre los mejores juegos cooperativos y multijugador de navegador en español.',
+        alternates,
       }
     : {
         title: 'Blog — Co-op & multiplayer game guides',
         description:
           'Guides, lists and articles about the best co-op and multiplayer browser games.',
+        alternates,
       };
 }
 
