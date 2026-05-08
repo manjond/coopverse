@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 
 const DEFAULT_SITE_URL = 'https://www.coopverse.io';
+export const SEO_LOCALES = ['es'] as const;
 
 export function getSiteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL).replace(/\/+$/, '');
@@ -22,13 +23,13 @@ export function localeAlternates(locale: string, path = ''): Metadata['alternate
   return {
     canonical: localizedPath(locale, path),
     languages: Object.fromEntries([
-      ...routing.locales.map((l) => [l, localizedPath(l, path)]),
+      ...SEO_LOCALES.map((l) => [l, localizedPath(l, path)]),
       ['x-default', localizedPath(routing.defaultLocale, path)],
     ]),
   };
 }
 
-export function localeAlternateUrls(path = '', locales: readonly string[] = routing.locales) {
+export function localeAlternateUrls(path = '', locales: readonly string[] = SEO_LOCALES) {
   return Object.fromEntries([
     ...locales.map((locale) => [locale, absoluteUrl(localizedPath(locale, path))]),
     ['x-default', absoluteUrl(localizedPath(routing.defaultLocale, path))],

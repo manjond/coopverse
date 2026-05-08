@@ -1,7 +1,6 @@
 import { getAllCategories, getAllGames } from '@/db/queries';
 import { getAllSlugsForLocale } from '@/content/blog/registry';
-import { routing } from '@/i18n/routing';
-import { absoluteUrl, localeAlternateUrls } from '@/lib/site';
+import { absoluteUrl, localeAlternateUrls, SEO_LOCALES } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,7 +26,7 @@ ${alts}
   </url>`;
 }
 
-function makeAlts(path: string, locales: readonly string[] = routing.locales) {
+function makeAlts(path: string, locales: readonly string[] = SEO_LOCALES) {
   return localeAlternateUrls(path, locales);
 }
 
@@ -37,19 +36,19 @@ export async function GET() {
   // Static pages
   for (const path of ['', '/juegos', '/categorias', '/privacy', '/terms', '/blog']) {
     const priority = path === '' ? '1.0' : path === '/blog' ? '0.6' : '0.3';
-    for (const locale of routing.locales) {
+    for (const locale of SEO_LOCALES) {
       urls.push(url(absoluteUrl(`/${locale}${path}`), priority, 'weekly', undefined, makeAlts(path)));
     }
   }
 
   // Blog articles: only include locales that actually have the article.
   const blogSlugsByLocale = Object.fromEntries(
-    routing.locales.map((locale) => [locale, getAllSlugsForLocale(locale)]),
+    SEO_LOCALES.map((locale) => [locale, getAllSlugsForLocale(locale)]),
   );
-  for (const locale of routing.locales) {
+  for (const locale of SEO_LOCALES) {
     for (const slug of blogSlugsByLocale[locale]) {
       const path = `/blog/${slug}`;
-      const localesWithSlug = routing.locales.filter((l) =>
+      const localesWithSlug = SEO_LOCALES.filter((l) =>
         blogSlugsByLocale[l].includes(slug),
       );
       urls.push(url(absoluteUrl(`/${locale}${path}`), '0.6', 'monthly', undefined, makeAlts(path, localesWithSlug)));
@@ -63,7 +62,7 @@ export async function GET() {
     for (const c of cats) {
       const path = `/c/${c.slug}`;
       const lastmod = c.createdAt.toISOString().slice(0, 10);
-      for (const locale of routing.locales) {
+      for (const locale of SEO_LOCALES) {
         urls.push(url(absoluteUrl(`/${locale}${path}`), '0.7', 'weekly', lastmod, makeAlts(path)));
       }
     }
@@ -71,7 +70,7 @@ export async function GET() {
     for (const g of games) {
       const path = `/g/${g.slug}`;
       const lastmod = g.updatedAt.toISOString().slice(0, 10);
-      for (const locale of routing.locales) {
+      for (const locale of SEO_LOCALES) {
         urls.push(url(absoluteUrl(`/${locale}${path}`), '0.8', 'weekly', lastmod, makeAlts(path)));
       }
     }

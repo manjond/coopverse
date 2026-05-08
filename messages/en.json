@@ -40,7 +40,7 @@
     "openInNewTab": "Open in a new tab"
   },
   "Cookies": {
-    "message": "We use cookies to improve your experience and, later, to show ads. Nothing loads until you decide.",
+    "message": "We use cookies to improve your experience and show ads. Advertising does not load until you decide.",
     "accept": "Accept",
     "reject": "Reject",
     "privacyLink": "Read our privacy policy"

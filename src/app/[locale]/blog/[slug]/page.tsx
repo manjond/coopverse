@@ -6,7 +6,7 @@ import { getPostBySlug, getAllSlugsForLocale } from '@/content/blog/registry';
 import { safeJsonLd } from '@/lib/safe-json-ld';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/data/types';
-import { absoluteUrl, localizedPath } from '@/lib/site';
+import { absoluteUrl, localizedPath, SEO_LOCALES } from '@/lib/site';
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -22,10 +22,8 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const post = getPostBySlug(locale, slug);
   if (!post) return {};
-  const availableLocales = routing.locales.filter((l) => getPostBySlug(l, slug));
-  const xDefaultLocale = availableLocales.includes(routing.defaultLocale)
-    ? routing.defaultLocale
-    : locale;
+  const availableLocales = SEO_LOCALES.filter((l) => getPostBySlug(l, slug));
+  const xDefaultLocale = availableLocales[0] ?? locale;
   const articlePath = `/blog/${slug}`;
   return {
     title: post.meta.title,

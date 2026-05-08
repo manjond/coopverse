@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Los mejores juegos online para jugar en pareja (gratis, en el navegador)',
   description:
     'Los mejores juegos online para jugar en pareja: cooperativos, competitivos y de mesa. Gratis, sin descargas, perfectos para una noche de juegos juntos o a distancia.',
-  publishedAt: '2026-05-14',
+  publishedAt: '2026-05-08',
   readingTimeMin: 5,
   tags: ['pareja', '2 jugadores', 'cooperativo', 'romántico', 'navegador'],
 };

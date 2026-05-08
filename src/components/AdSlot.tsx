@@ -1,6 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import {
+  COOKIE_CONSENT_ACCEPTED,
+  COOKIE_CONSENT_EVENT,
+  COOKIE_CONSENT_STORAGE_KEY,
+} from '@/lib/consent';
 
 interface AdSlotProps {
   slot: string;
@@ -11,23 +16,39 @@ interface AdSlotProps {
 const PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID;
 
 /**
- * AdSense slot. Renders nothing until NEXT_PUBLIC_ADSENSE_PUB_ID is set.
- * To activate: add the pub ID to env vars and deploy — no code changes needed.
+ * AdSense slot. Renders nothing until ads are configured and the user
+ * has accepted advertising cookies.
  */
 export function AdSlot({ slot, format = 'auto', className = '' }: AdSlotProps) {
   const ref = useRef<HTMLModElement>(null);
+  const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
-    if (!PUB_ID || !ref.current) return;
-    try {
-      // @ts-expect-error — adsbygoogle is injected globally by the AdSense script
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch {
-      // safe to ignore — happens if script hasn't loaded yet
-    }
+    if (!PUB_ID) return;
+
+    const syncConsent = () => {
+      setHasConsent(localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY) === COOKIE_CONSENT_ACCEPTED);
+    };
+
+    const timer = window.setTimeout(syncConsent, 0);
+    window.addEventListener(COOKIE_CONSENT_EVENT, syncConsent);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener(COOKIE_CONSENT_EVENT, syncConsent);
+    };
   }, []);
 
-  if (!PUB_ID) return null;
+  useEffect(() => {
+    if (!PUB_ID || !hasConsent || !ref.current) return;
+    try {
+      // @ts-expect-error adsbygoogle is injected globally by the AdSense script.
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch {
+      // Safe to ignore if the third-party script is still loading.
+    }
+  }, [hasConsent]);
+
+  if (!PUB_ID || !hasConsent) return null;
 
   return (
     <div className={className}>

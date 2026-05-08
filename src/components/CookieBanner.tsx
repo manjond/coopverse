@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from '@/i18n/navigation';
-
-const STORAGE_KEY = 'coopverse_cookie_consent_v1';
+import {
+  COOKIE_CONSENT_ACCEPTED,
+  COOKIE_CONSENT_EVENT,
+  COOKIE_CONSENT_REJECTED,
+  COOKIE_CONSENT_STORAGE_KEY,
+  type CookieConsentChoice,
+} from '@/lib/consent';
 
 /**
  * Bare-bones GDPR / ePrivacy cookie banner. Stores the user's choice in
@@ -29,13 +34,17 @@ export function CookieBanner({
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (!localStorage.getItem(STORAGE_KEY)) setOpen(true);
+    const timer = window.setTimeout(() => {
+      if (!localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY)) setOpen(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   if (!open) return null;
 
-  const close = (choice: 'accepted' | 'rejected') => {
-    localStorage.setItem(STORAGE_KEY, choice);
+  const close = (choice: CookieConsentChoice) => {
+    localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, choice);
+    window.dispatchEvent(new CustomEvent(COOKIE_CONSENT_EVENT, { detail: choice }));
     setOpen(false);
   };
 
@@ -50,13 +59,13 @@ export function CookieBanner({
         </p>
         <div className="mt-3 flex gap-2">
           <button
-            onClick={() => close('rejected')}
+            onClick={() => close(COOKIE_CONSENT_REJECTED)}
             className="flex-1 rounded-md border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-zinc-500"
           >
             {rejectLabel}
           </button>
           <button
-            onClick={() => close('accepted')}
+            onClick={() => close(COOKIE_CONSENT_ACCEPTED)}
             className="flex-1 rounded-md bg-cyan-500 px-3 py-1.5 text-xs font-semibold text-zinc-950 transition hover:bg-cyan-400"
           >
             {acceptLabel}

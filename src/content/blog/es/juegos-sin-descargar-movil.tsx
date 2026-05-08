@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Juegos multijugador sin descargar para móvil y PC — Los mejores de 2026',
   description:
     'Los mejores juegos multijugador que puedes jugar sin descargar nada, directamente en el navegador del móvil o PC. Gratis, sin registro y sin ocupar espacio.',
-  publishedAt: '2026-05-15',
+  publishedAt: '2026-05-08',
   readingTimeMin: 4,
   tags: ['móvil', 'sin descargas', 'multijugador', 'navegador'],
 };

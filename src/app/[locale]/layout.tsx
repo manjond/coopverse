@@ -8,7 +8,7 @@ import { routing } from '@/i18n/routing';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CookieBanner } from '@/components/CookieBanner';
-import { getSiteUrl } from '@/lib/site';
+import { getSiteUrl, SEO_LOCALES } from '@/lib/site';
 import '../globals.css';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
@@ -29,6 +29,9 @@ export async function generateMetadata({
     title: { default: t('siteName'), template: `%s · ${t('siteName')}` },
     description: t('description'),
     metadataBase: new URL(getSiteUrl()),
+    robots: SEO_LOCALES.includes(locale as (typeof SEO_LOCALES)[number])
+      ? undefined
+      : { index: false, follow: true },
     icons: {
       icon: '/icon.svg',
       apple: '/apple-icon.svg',

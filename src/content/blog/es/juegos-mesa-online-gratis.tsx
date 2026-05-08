@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Los mejores juegos de mesa online gratis para jugar en el navegador',
   description:
     'Guía de los mejores juegos de mesa online que puedes jugar gratis en el navegador con amigos y familia. Sin descargas, con sala privada y enlace compartible.',
-  publishedAt: '2026-05-12',
+  publishedAt: '2026-05-08',
   readingTimeMin: 5,
   tags: ['juegos de mesa', 'online', 'gratis', 'navegador', 'familia'],
 };

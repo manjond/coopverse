@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Wobble Park: guía completa del mejor juego cooperativo de navegador',
   description:
     'Todo sobre Wobble Park: cómo jugar, mecánicas, niveles, consejos para superar los más difíciles y por qué es el mejor juego cooperativo de navegador disponible gratis.',
-  publishedAt: '2026-05-13',
+  publishedAt: '2026-05-08',
   readingTimeMin: 6,
   tags: ['wobble-park', 'cooperativo', 'guía', 'navegador'],
 };

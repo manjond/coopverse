@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Cómo jugar con amigos online sin descargar nada — Guía 2026',
   description:
     'Guía paso a paso para jugar con amigos online sin descargar nada. Plataformas, juegos recomendados y trucos para montar una sesión de juego en menos de 5 minutos.',
-  publishedAt: '2026-05-09',
+  publishedAt: '2026-05-08',
   readingTimeMin: 5,
   tags: ['multijugador', 'sin descargas', 'navegador', 'amigos'],
 };

@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Los mejores juegos cooperativos para 4 jugadores en el navegador',
   description:
     'Guía de los mejores juegos cooperativos para 4 jugadores que puedes jugar gratis en el navegador. Sin descargas, sin registro, perfectos para squads de amigos.',
-  publishedAt: '2026-05-10',
+  publishedAt: '2026-05-08',
   readingTimeMin: 5,
   tags: ['4 jugadores', 'cooperativos', 'navegador', 'squad'],
 };

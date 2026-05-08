@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Los mejores juegos multijugador para jugar en el trabajo (sin instalar nada)',
   description:
     'Juegos multijugador que puedes jugar en el trabajo desde el navegador: sin descargas, sin instalaciones, sin que IT se entere. Para la pausa del almuerzo o el descanso.',
-  publishedAt: '2026-05-11',
+  publishedAt: '2026-05-08',
   readingTimeMin: 4,
   tags: ['trabajo', 'multijugador', 'navegador', 'pausa'],
 };
