@@ -20,11 +20,11 @@ export interface Game {
   /** Featured games show on the home hero / spotlight. */
   featured: boolean;
   title: LocalizedString;
-  /** Short tagline for cards (~80 chars). */
+  /** One-sentence summary shown on cards. Keep it plain and specific. */
   tagline: LocalizedString;
-  /** Long description for /g/[slug] (~300-600 chars). */
+  /** Human-friendly explanation for the game detail page. */
   description: LocalizedString;
-  /** Step-by-step controls / how to play. */
+  /** Controls and first steps, written for someone opening the game cold. */
   instructions: LocalizedString;
   /** URL embedded in the iframe on /play/[slug]. */
   embedUrl: string;
@@ -44,7 +44,7 @@ export interface Game {
 export interface Category {
   slug: string;
   name: LocalizedString;
-  /** Short blurb under the category title. */
+  /** Short explanation under the category title. */
   description: LocalizedString;
   /** Single-character emoji icon used in nav and headers. */
   icon: string;

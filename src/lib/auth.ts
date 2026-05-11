@@ -3,9 +3,20 @@ import { cookies } from 'next/headers';
 
 const COOKIE = 'cv_session';
 const ALGO = 'HS256';
+const MIN_SECRET_LENGTH = 32;
+const DEV_SECRET = 'coopverse-dev-secret-change-in-production';
 
 function secret() {
-  const s = process.env.AUTH_SECRET ?? 'coopverse-dev-secret-change-in-production';
+  const configured = process.env.AUTH_SECRET?.trim();
+  if (
+    process.env.NODE_ENV === 'production' &&
+    (!configured ||
+      configured.length < MIN_SECRET_LENGTH ||
+      configured.toLowerCase().includes('change-me'))
+  ) {
+    throw new Error('AUTH_SECRET must be set to a random 32+ character value in production');
+  }
+  const s = configured || DEV_SECRET;
   return new TextEncoder().encode(s);
 }
 
@@ -24,7 +35,7 @@ export async function signToken(payload: Session): Promise<string> {
 
 export async function verifyToken(token: string): Promise<Session | null> {
   try {
-    const { payload } = await jwtVerify(token, secret());
+    const { payload } = await jwtVerify(token, secret(), { algorithms: [ALGO] });
     return payload as unknown as Session;
   } catch {
     return null;

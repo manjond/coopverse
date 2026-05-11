@@ -66,8 +66,8 @@ export const COMBOS: Combo[] = CATEGORY_SLUGS.flatMap((cat) =>
         en: `${n === 1 ? 'Solo' : n + '-Player'} ${CAT_LABELS.en[cat]} browser games | Coopverse`,
       },
       description: {
-        es: `Los mejores juegos ${CAT_LABELS.es[cat]} para ${PLAYER_LABELS.es[n]} en el navegador, sin descargar nada. Juega gratis en Coopverse.`,
-        en: `Best free ${CAT_LABELS.en[cat]} browser games for ${PLAYER_LABELS.en[n]}. No downloads. Play free on Coopverse.`,
+        es: `Juegos ${CAT_LABELS.es[cat]} pensados para ${PLAYER_LABELS.es[n]}. Ábrelos en el navegador y juega gratis, sin instalar nada.`,
+        en: `${CAT_LABELS.en[cat]} games made for ${PLAYER_LABELS.en[n]}. Open them in your browser and play free, with no install.`,
       },
       h1: {
         es: `Juegos ${CAT_LABELS.es[cat]} para ${PLAYER_LABELS.es[n]}`,

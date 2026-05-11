@@ -1,10 +1,17 @@
 import Link from 'next/link';
 import { neon } from '@neondatabase/serverless';
-import { db } from '@/db/client';
-import { games, categories, favorites, ratings } from '@/db/schema';
-import { desc, sql, count } from 'drizzle-orm';
+import { assertDatabaseUrl, db } from '@/db/client';
+import { games, categories } from '@/db/schema';
+import { desc } from 'drizzle-orm';
+
+type CountRow = { n: number };
+type UserStatsRow = { total: number; last_7d: number; last_30d: number };
+type RecentUserRow = { name: string; email: string; created_at: string | Date };
+type TopFavoritedRow = { slug: string; title_es: string; fav_count: number };
+type TopRatedRow = { slug: string; title_es: string; avg_stars: string; vote_count: number };
 
 export default async function AdminDashboard() {
+  assertDatabaseUrl();
   const rawSql = neon(process.env.DATABASE_URL!);
 
   const [
@@ -59,11 +66,14 @@ export default async function AdminDashboard() {
     rawSql`SELECT COUNT(*)::int AS n FROM ratings`,
   ]);
 
-  const featuredCount   = allGames.filter((g) => g.featured).length;
-  const ownCount        = allGames.filter((g) => g.source === 'own').length;
   const placeholderCount = allGames.filter((g) => g.embedUrl === 'about:blank').length;
   const totalPlays      = allGames.reduce((s, g) => s + g.playsCount, 0);
-  const users           = userStats[0] as { total: number; last_7d: number; last_30d: number };
+  const users           = (userStats as UserStatsRow[])[0];
+  const recentUserRows  = recentUsers as RecentUserRow[];
+  const totalFavoriteRows = totalFavorites as CountRow[];
+  const totalRatingRows = totalRatings as CountRow[];
+  const topFavoritedRows = topFavorited as TopFavoritedRow[];
+  const topRatedRows = topRated as TopRatedRow[];
 
   return (
     <div className="space-y-10">
@@ -79,10 +89,10 @@ export default async function AdminDashboard() {
           <Stat label="Total usuarios"   value={users?.total ?? 0}    accent="good" />
           <Stat label="Nuevos (7 días)"  value={users?.last_7d ?? 0} />
           <Stat label="Nuevos (30 días)" value={users?.last_30d ?? 0} />
-          <Stat label="Favoritos totales" value={(totalFavorites[0] as any)?.n ?? 0} />
+          <Stat label="Favoritos totales" value={totalFavoriteRows[0]?.n ?? 0} />
         </div>
 
-        {recentUsers.length > 0 && (
+        {recentUserRows.length > 0 && (
           <div className="mt-4 overflow-hidden rounded-xl border border-zinc-800">
             <table className="w-full text-sm">
               <thead className="bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-500">
@@ -93,7 +103,7 @@ export default async function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-800/60">
-                {recentUsers.map((u: any) => (
+                {recentUserRows.map((u) => (
                   <tr key={u.email} className="hover:bg-zinc-900/40">
                     <td className="px-4 py-2 text-zinc-200">{u.name}</td>
                     <td className="px-4 py-2 text-zinc-400">{u.email}</td>
@@ -115,15 +125,15 @@ export default async function AdminDashboard() {
           <Stat label="Juegos" value={allGames.length} />
           <Stat label="Categorías" value={allCats.length} />
           <Stat label="Partidas totales" value={totalPlays} />
-          <Stat label="Valoraciones" value={(totalRatings[0] as any)?.n ?? 0} />
+          <Stat label="Valoraciones" value={totalRatingRows[0]?.n ?? 0} />
         </div>
       </section>
 
       {/* ── Rankings ── */}
       <div className="grid gap-6 sm:grid-cols-3">
         <RankList title="🎮 Más jugados" items={topPlayed.map((g) => ({ name: g.titleEs, value: `${g.playsCount} partidas`, slug: g.slug }))} />
-        <RankList title="♥ Más guardados" items={(topFavorited as any[]).map((g) => ({ name: g.title_es, value: `${g.fav_count} favs`, slug: g.slug }))} />
-        <RankList title="★ Mejor valorados" items={(topRated as any[]).map((g) => ({ name: g.title_es, value: `${g.avg_stars}★ (${g.vote_count})`, slug: g.slug }))} />
+        <RankList title="♥ Más guardados" items={topFavoritedRows.map((g) => ({ name: g.title_es, value: `${g.fav_count} favs`, slug: g.slug }))} />
+        <RankList title="★ Mejor valorados" items={topRatedRows.map((g) => ({ name: g.title_es, value: `${g.avg_stars}★ (${g.vote_count})`, slug: g.slug }))} />
       </div>
 
       {placeholderCount > 0 && (

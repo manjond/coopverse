@@ -7,15 +7,24 @@ const HISTORY_KEY = 'coopverse_history';
 
 interface HistoryEntry { slug: string; title: string; ts: number }
 
+function readHistory(): HistoryEntry[] {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 export function RecentlyPlayed({ locale }: { locale: string }) {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const lc = locale;
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(HISTORY_KEY);
-      if (raw) setHistory(JSON.parse(raw));
-    } catch {}
+    const id = window.setTimeout(() => setHistory(readHistory()), 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   if (history.length === 0) return null;

@@ -11,7 +11,7 @@ function SubmitButton() {
       disabled={pending}
       className="w-full rounded-md bg-cyan-500 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-cyan-400 disabled:opacity-50"
     >
-      {pending ? '…' : 'Enter'}
+      {pending ? '…' : 'Entrar'}
     </button>
   );
 }
@@ -23,10 +23,10 @@ export function LoginForm() {
       className="w-80 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 shadow-xl"
     >
       <h1 className="text-xl font-bold text-white">Coopverse admin</h1>
-      <p className="mt-1 text-xs text-zinc-500">Single-admin password gate.</p>
+      <p className="mt-1 text-xs text-zinc-500">Acceso privado para gestionar el catálogo.</p>
 
       <label className="mt-5 block text-xs uppercase tracking-wider text-zinc-400">
-        Password
+        Contraseña
       </label>
       <input
         type="password"

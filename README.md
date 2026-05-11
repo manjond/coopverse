@@ -1,19 +1,19 @@
 # Coopverse
 
-Multilingual portal of cooperative & multiplayer browser games. Spanish-first, English-ready.
+Spanish-first portal of cooperative and multiplayer browser games.
 
-🌐 https://www.coopverse.io (live once deployed)
+🌐 https://www.coopverse.io
 
 ## Stack
 
-- **Next.js 15** App Router + TypeScript + TailwindCSS
-- **next-intl** for i18n (Spanish primary, English in waiting)
-- **Cloudflare Pages** hosting + CDN + DNS
+- **Next.js 16** App Router + TypeScript + Tailwind CSS
+- **next-intl** for locale-aware routes (`/es` primary, `/en` available but noindexed)
+- **Vercel / OpenNext Cloudflare-compatible** deployment scripts
 - **Neon** Postgres database (catalog, users, favorites)
-- **Clerk** auth (added later)
-- **GameDistribution** for the third-party catalog (added later)
+- Password-based first-party accounts for favorites and ratings
+- Third-party browser games embedded in isolated iframes
 
-Strategy doc: see `PORTAL_PLAN.md` in the sibling `pikopark-online` repo.
+Strategy doc: see `PORTAL_PLAN.md`.
 
 ## Local dev
 
@@ -33,23 +33,30 @@ src/
     [locale]/        # all routes scoped to a locale
       layout.tsx
       page.tsx       # homepage
-      g/[slug]/      # (planned) game detail
-      c/[slug]/      # (planned) category
-      play/[slug]/   # (planned) iframe play view
+      g/[slug]/      # game detail
+      c/[slug]/      # category page
+      play/[slug]/   # noindex iframe play view
   i18n/
     routing.ts       # locale list + default
     request.ts       # per-request config (lazy-loads messages)
     navigation.ts    # locale-aware Link / redirect / etc.
-  middleware.ts      # locale detection on every request
+  proxy.ts           # locale detection on every request
 messages/
   es.json            # Spanish translations (primary)
   en.json            # English translations
 ```
 
+## Security notes
+
+- Keep `AUTH_SECRET`, `ADMIN_PASSWORD`, and `DATABASE_URL` out of git.
+- Production `AUTH_SECRET` must be a random value with at least 32 characters.
+- `/admin`, `/api`, and `/[locale]/play/*` are excluded from indexing.
+- Third-party games are loaded in sandboxed iframes; add new embeds through the admin form so URL validation runs.
+
 ## Deploy
 
-- Push to `main` → Cloudflare Pages auto-builds + deploys (configured in Step 13).
-- Production env vars set via Cloudflare Pages dashboard → Settings → Environment variables.
+- Push to `main` to trigger the configured production deployment.
+- Production env vars are set in the hosting provider dashboard.
 
 ## License
 

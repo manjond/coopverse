@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   pgTable,
   serial,
@@ -79,6 +80,15 @@ export const games = pgTable(
   }),
 );
 
+export const users = pgTable('users', {
+  id: text('id').primaryKey().default(sql`gen_random_uuid()::text`),
+  email: text('email').notNull().unique(),
+  name: text('name').notNull(),
+  passwordHash: text('password_hash').notNull(),
+  avatarUrl: text('avatar_url'),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+});
+
 export const ratings = pgTable(
   'ratings',
   {
@@ -111,3 +121,4 @@ export type NewGame = typeof games.$inferInsert;
 export type Category = typeof categories.$inferSelect;
 export type NewCategory = typeof categories.$inferInsert;
 export type Favorite = typeof favorites.$inferSelect;
+export type User = typeof users.$inferSelect;

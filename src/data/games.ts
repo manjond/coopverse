@@ -10,16 +10,16 @@ export const GAMES: Game[] = [
       en: 'Wobble Park Online',
     },
     tagline: {
-      es: 'Plataformas cooperativas para 1 a 8 jugadores en navegador.',
-      en: 'Cooperative platformer puzzles for 1 to 8 players, in your browser.',
+      es: 'Salta, empuja y resuelve niveles con hasta 8 personas, sin instalar nada.',
+      en: 'Jump, push, and solve levels with up to 8 people, no install needed.',
     },
     description: {
-      es: `Wobble Park Online es un plataformero cooperativo donde uno a ocho jugadores resuelven puzles trabajando en equipo. Apílate sobre tus amigos para alcanzar plataformas más altas, sostén botones de presión mientras otros cruzan trampas, y supera lava, sierras de fuego y plataformas que se desmoronan. Son 45 niveles repartidos en 9 packs de dificultad ascendente — de Solo a Squad pasando por Duo. Ningún nivel exige instalación: abres el navegador, te unes a una sala con un código de 4 letras, y juegas.`,
-      en: `Wobble Park Online is a cooperative platformer where one to eight players solve puzzles together. Stack on your friends to reach higher platforms, hold pressure pads while teammates cross traps, and survive lava, fire bars and crumbling floors. 45 levels across 9 difficulty packs — Solo, Duo, Squad. No installs: open your browser, join a room with a 4-letter code, and play.`,
+      es: `Wobble Park Online es un juego cooperativo de plataformas. Entras desde el navegador, creas una sala y compartes un código de 4 letras. El objetivo es simple: llegar al final de cada nivel ayudándoos entre todos. A veces tendrás que sujetar un botón, otras apilarte sobre otro jugador o cruzar trampas en el momento justo. Tiene 45 niveles, desde retos para una persona hasta pruebas pensadas para grupos.`,
+      en: `Wobble Park Online is a cooperative platform game. Open it in your browser, create a room, and share a 4-letter code. The goal is simple: reach the end of each level by helping each other. Sometimes you hold a button, sometimes you stack on another player, and sometimes you cross traps at just the right moment. It has 45 levels, from solo challenges to group stages.`,
     },
     instructions: {
-      es: `Crear o unirse a una sala con código de 4 letras • Mover: A/D o flechas • Saltar: espacio o W • Recoger / lanzar a un compañero: E • Apilarse: salta sobre la cabeza de otro jugador • Móvil: D-pad virtual + botón de salto`,
-      en: `Create or join a room with a 4-letter code • Move: A/D or arrows • Jump: space or W • Pick up / throw a partner: E • Stack: jump onto another player's head • Mobile: virtual D-pad + jump button`,
+      es: `Crea una sala o entra con un código de 4 letras. Muévete con A/D o las flechas. Salta con espacio o W. Pulsa E para recoger o lanzar a un compañero. Para apilaros, salta sobre la cabeza de otro jugador.`,
+      en: `Create a room or join with a 4-letter code. Move with A/D or the arrow keys. Jump with Space or W. Press E to pick up or throw a teammate. To stack, jump onto another player's head.`,
     },
     embedUrl:
       process.env.NEXT_PUBLIC_PIKOPARK_URL ?? 'https://pikopark-online.vercel.app',
@@ -35,12 +35,12 @@ export const GAMES: Game[] = [
     featured: false,
     title: { es: 'Demo: Skribbl-style', en: 'Demo: Skribbl-style' },
     tagline: {
-      es: 'Demo placeholder — espera juegos reales tras integrar GameDistribution.',
-      en: 'Placeholder demo — real games arrive once GameDistribution is wired.',
+      es: 'Ficha de prueba para validar el catálogo antes de publicar juegos reales.',
+      en: 'Test listing used to validate the catalog before publishing real games.',
     },
     description: {
-      es: 'Slot reservado para un juego real. Este placeholder existe sólo para que el grid de la home no salga vacío en el primer despliegue.',
-      en: 'Reserved slot. Placeholder so the home grid is not empty on first deploy.',
+      es: 'Esta ficha no es un juego final. Sirve para comprobar que las tarjetas, categorías y páginas funcionan antes de añadir contenido real.',
+      en: 'This is not a final game. It is used to check that cards, categories, and pages work before adding real content.',
     },
     instructions: { es: '—', en: '—' },
     embedUrl: 'about:blank',

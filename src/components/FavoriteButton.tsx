@@ -23,7 +23,8 @@ export function FavoriteButton({
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    setLoggedIn(isLoggedInClient());
+    const id = window.setTimeout(() => setLoggedIn(isLoggedInClient()), 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   if (!loggedIn) {

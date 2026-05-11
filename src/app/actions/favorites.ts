@@ -2,7 +2,7 @@
 
 import { and, eq } from 'drizzle-orm';
 import { db } from '@/db/client';
-import { favorites } from '@/db/schema';
+import { favorites, games } from '@/db/schema';
 import { getSession } from '@/lib/auth';
 
 const SLUG_RE = /^[a-z0-9-]{1,96}$/;
@@ -14,6 +14,12 @@ export async function toggleFavorite(gameSlug: string): Promise<{ favorited: boo
   if (!session) throw new Error('Debes iniciar sesión para guardar favoritos.');
 
   const { userId } = session;
+  const [game] = await db
+    .select({ slug: games.slug })
+    .from(games)
+    .where(eq(games.slug, gameSlug))
+    .limit(1);
+  if (!game) throw new Error('El juego ya no existe.');
 
   const [existing] = await db
     .select({ id: favorites.id })

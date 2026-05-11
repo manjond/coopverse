@@ -31,8 +31,8 @@ export default function Content() {
         </li>
         <li>
           <strong>Comunicación real.</strong> El mejor cooperativo es el que te obliga a
-          hablar con tu compañero. Los mejores momentos coop son los de "¡¡no, izquierda,
-          IZQUIERDA!!"
+          hablar con tu compañero. Los mejores momentos coop son los de &quot;¡¡no,
+          izquierda, IZQUIERDA!!&quot;
         </li>
         <li>
           <strong>Rejugabilidad.</strong> Una sola partida no cuenta. Tiene que engancharte

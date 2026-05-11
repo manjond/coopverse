@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { GameCard } from '@/components/GameCard';
@@ -182,9 +183,11 @@ export default async function Home({
                   className="group relative flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/40 p-3 transition hover:border-fuchsia-500/40 hover:bg-zinc-900/70"
                 >
                   <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-lg bg-zinc-800">
-                    <img
+                    <Image
                       src={g.thumbUrl}
                       alt={g.title[lc]}
+                      fill
+                      sizes="80px"
                       className="h-full w-full object-cover"
                     />
                   </div>

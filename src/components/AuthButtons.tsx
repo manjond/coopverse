@@ -19,7 +19,8 @@ export function AuthButtons({ locale }: { locale: string }) {
   const [name, setName] = useState<string | null>(null);
 
   useEffect(() => {
-    setName(readDisplayCookie());
+    const id = window.setTimeout(() => setName(readDisplayCookie()), 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   if (name) {

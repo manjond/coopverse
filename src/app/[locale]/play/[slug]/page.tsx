@@ -52,6 +52,7 @@ export default async function PlayPage({
             href={game.embedUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={lc === 'es' ? 'Abrir juego en una pestaña nueva' : 'Open game in a new tab'}
             className="rounded-md border border-zinc-700 px-3 py-1 text-xs text-zinc-300 transition hover:border-zinc-500"
           >
             ↗
@@ -64,7 +65,9 @@ export default async function PlayPage({
           src={game.embedUrl}
           title={game.title[lc]}
           className="h-[calc(100vh-100px)] w-full border-0"
-          allow="fullscreen; autoplay; gamepad; pointer-lock; microphone; clipboard-read; clipboard-write"
+          allow="fullscreen; autoplay; gamepad; pointer-lock"
+          referrerPolicy="strict-origin-when-cross-origin"
+          sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts"
         />
       </div>
     </div>

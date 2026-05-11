@@ -4,6 +4,7 @@ import type { Game, Locale } from '@/data/types';
 import { FavoriteButton } from './FavoriteButton';
 
 const NEW_DAYS = 14; // games added within this window get the "NUEVO" badge
+const NEW_BADGE_CUTOFF_MS = Date.now() - NEW_DAYS * 86_400_000;
 
 export function GameCard({
   game,
@@ -15,7 +16,7 @@ export function GameCard({
   isFavorited?: boolean;
 }) {
   const isNew = game.publishedAt
-    ? (Date.now() - new Date(game.publishedAt).getTime()) < NEW_DAYS * 86_400_000
+    ? new Date(game.publishedAt).getTime() > NEW_BADGE_CUTOFF_MS
     : false;
 
   return (

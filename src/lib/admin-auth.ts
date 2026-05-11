@@ -10,10 +10,17 @@ import { createHmac, timingSafeEqual } from 'crypto';
 
 const COOKIE_NAME = 'coopverse_admin';
 const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+const MIN_SECRET_LENGTH = 32;
 
 function secret(): string {
-  const s = process.env.ADMIN_PASSWORD;
+  const s = process.env.ADMIN_PASSWORD?.trim();
   if (!s) throw new Error('ADMIN_PASSWORD env var is not set');
+  if (
+    process.env.NODE_ENV === 'production' &&
+    (s.length < MIN_SECRET_LENGTH || s.toLowerCase().includes('change-me'))
+  ) {
+    throw new Error('ADMIN_PASSWORD must be a random 32+ character value in production');
+  }
   return s;
 }
 

@@ -2,7 +2,7 @@
 
 import { and, eq } from 'drizzle-orm';
 import { db } from '@/db/client';
-import { ratings } from '@/db/schema';
+import { games, ratings } from '@/db/schema';
 import { getSession } from '@/lib/auth';
 
 const SLUG_RE = /^[a-z0-9-]{1,96}$/;
@@ -12,6 +12,13 @@ export async function rateGame(gameSlug: string, stars: number): Promise<void> {
 
   const session = await getSession();
   if (!session) return;
+
+  const [game] = await db
+    .select({ slug: games.slug })
+    .from(games)
+    .where(eq(games.slug, gameSlug))
+    .limit(1);
+  if (!game) return;
 
   await db.insert(ratings)
     .values({ userId: session.userId, gameSlug, stars })

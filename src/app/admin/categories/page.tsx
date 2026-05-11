@@ -14,12 +14,12 @@ export default async function CategoriesAdmin() {
         <table className="w-full text-sm">
           <thead className="bg-zinc-900/60 text-xs uppercase tracking-wider text-zinc-500">
             <tr>
-              <th className="px-3 py-2 text-left">Icon</th>
+              <th className="px-3 py-2 text-left">Icono</th>
               <th className="px-3 py-2 text-left">Slug</th>
-              <th className="px-3 py-2 text-left">Name (ES)</th>
-              <th className="px-3 py-2 text-left">Name (EN)</th>
-              <th className="px-3 py-2 text-left">Sort</th>
-              <th className="px-3 py-2 text-right">Action</th>
+              <th className="px-3 py-2 text-left">Nombre (ES)</th>
+              <th className="px-3 py-2 text-left">Nombre (EN)</th>
+              <th className="px-3 py-2 text-left">Orden</th>
+              <th className="px-3 py-2 text-right">Acción</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-800/60">
@@ -32,7 +32,7 @@ export default async function CategoriesAdmin() {
                 <td className="px-3 py-2 text-zinc-400">{c.sort}</td>
                 <td className="px-3 py-2 text-right">
                   <form action={deleteCategory.bind(null, c.slug)} className="inline">
-                    <button className="text-rose-400 hover:text-rose-300">Delete</button>
+                    <button className="text-rose-400 hover:text-rose-300">Borrar</button>
                   </form>
                 </td>
               </tr>
@@ -41,23 +41,23 @@ export default async function CategoriesAdmin() {
         </table>
       </div>
 
-      <h2 className="mt-10 text-lg font-bold">+ New category</h2>
+      <h2 className="mt-10 text-lg font-bold">+ Nueva categoría</h2>
       <form
         action={createCategory}
         className="mt-4 grid max-w-2xl gap-3 rounded-xl border border-zinc-800 bg-zinc-900/40 p-4"
       >
         <div className="grid gap-3 sm:grid-cols-2">
-          <Input label="Slug (URL)"     name="slug"          required />
-          <Input label="Icon (emoji)"   name="icon"          />
-          <Input label="Name (ES)"      name="nameEs"        required />
-          <Input label="Name (EN)"      name="nameEn"        required />
-          <Input label="Description (ES)" name="descriptionEs" required />
-          <Input label="Description (EN)" name="descriptionEn" required />
-          <Input label="Sort (number)"  name="sort"          type="number" />
+          <Input label="URL de la categoría" name="slug" required />
+          <Input label="Icono" name="icon" />
+          <Input label="Nombre (ES)" name="nameEs" required />
+          <Input label="Nombre (EN)" name="nameEn" required />
+          <Input label="Explicación corta (ES)" name="descriptionEs" required />
+          <Input label="Short explanation (EN)" name="descriptionEn" required />
+          <Input label="Orden" name="sort" type="number" />
         </div>
         <div>
           <button className="rounded-md bg-cyan-500 px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-cyan-400">
-            Create category
+            Crear categoría
           </button>
         </div>
       </form>

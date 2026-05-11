@@ -33,7 +33,7 @@ export function GameForm({
     <form action={action} className="grid gap-4">
       {showSlug && (
         <Field
-          label="slug (URL — kebab-case, no spaces)"
+          label="URL del juego (solo minúsculas, números y guiones)"
           name="slug"
           defaultValue={initial.slug}
           required
@@ -42,27 +42,27 @@ export function GameForm({
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Title (ES)"   name="titleEs"   defaultValue={initial.titleEs}   required />
-        <Field label="Title (EN)"   name="titleEn"   defaultValue={initial.titleEn}   required />
-        <Field label="Tagline (ES)" name="taglineEs" defaultValue={initial.taglineEs} required />
-        <Field label="Tagline (EN)" name="taglineEn" defaultValue={initial.taglineEn} required />
+        <Field label="Nombre (ES)" name="titleEs" defaultValue={initial.titleEs} required />
+        <Field label="Nombre (EN)" name="titleEn" defaultValue={initial.titleEn} required />
+        <Field label="Resumen corto (ES)" name="taglineEs" defaultValue={initial.taglineEs} required />
+        <Field label="Resumen corto (EN)" name="taglineEn" defaultValue={initial.taglineEn} required />
       </div>
 
-      <Area label="Description (ES)" name="descriptionEs" defaultValue={initial.descriptionEs} required rows={5} />
-      <Area label="Description (EN)" name="descriptionEn" defaultValue={initial.descriptionEn} required rows={5} />
-      <Area label="Instructions (ES)" name="instructionsEs" defaultValue={initial.instructionsEs} rows={3} />
-      <Area label="Instructions (EN)" name="instructionsEn" defaultValue={initial.instructionsEn} rows={3} />
+      <Area label="Qué es este juego (ES)" name="descriptionEs" defaultValue={initial.descriptionEs} required rows={5} />
+      <Area label="What this game is (EN)" name="descriptionEn" defaultValue={initial.descriptionEn} required rows={5} />
+      <Area label="Cómo se juega (ES)" name="instructionsEs" defaultValue={initial.instructionsEs} rows={3} />
+      <Area label="How to play (EN)" name="instructionsEn" defaultValue={initial.instructionsEn} rows={3} />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Embed URL (iframe src)" name="embedUrl"  defaultValue={initial.embedUrl}  required />
-        <Field label="Thumbnail URL or path"  name="thumbUrl"  defaultValue={initial.thumbUrl ?? '/thumbs/placeholder.svg'} />
+        <Field label="Enlace donde se abre el juego" name="embedUrl" defaultValue={initial.embedUrl} required />
+        <Field label="Imagen de portada (URL o /thumbs/...)" name="thumbUrl" defaultValue={initial.thumbUrl ?? '/thumbs/placeholder.svg'} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <Field label="Min players" name="minPlayers" type="number" defaultValue={initial.minPlayers ?? 1} />
-        <Field label="Max players" name="maxPlayers" type="number" defaultValue={initial.maxPlayers ?? 1} />
+        <Field label="Mínimo de jugadores" name="minPlayers" type="number" defaultValue={initial.minPlayers ?? 1} />
+        <Field label="Máximo de jugadores" name="maxPlayers" type="number" defaultValue={initial.maxPlayers ?? 1} />
         <Field
-          label="Source"
+          label="Origen (manual, own o gd)"
           name="source"
           defaultValue={initial.source ?? 'manual'}
           mono
@@ -70,7 +70,7 @@ export function GameForm({
       </div>
 
       <Field
-        label="Category slugs (comma-separated)"
+        label="Categorías (slugs separados por comas)"
         name="categorySlugs"
         defaultValue={(initial.categorySlugs ?? []).join(', ')}
         mono
@@ -83,7 +83,7 @@ export function GameForm({
           defaultChecked={initial.featured}
           className="h-4 w-4 rounded border-zinc-700 bg-zinc-900"
         />
-        Featured (shows on the home spotlight)
+        Destacado en la portada
       </label>
 
       <div className="pt-4">

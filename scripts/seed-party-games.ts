@@ -1,7 +1,25 @@
 import { neon } from '@neondatabase/serverless';
 const sql = neon(process.env.DATABASE_URL!);
 
-const games = [
+type SeedGame = {
+  slug: string;
+  title_es: string;
+  title_en: string;
+  tagline_es: string;
+  tagline_en: string;
+  description_es: string;
+  description_en: string;
+  instructions_es: string;
+  instructions_en: string;
+  embed_url: string;
+  thumb_url: string;
+  min_players: number;
+  max_players: number;
+  category_slugs: string[];
+  featured?: boolean;
+};
+
+const games: SeedGame[] = [
   {
     slug: 'bonk-io',
     title_es: 'Bonk.io', title_en: 'Bonk.io',
@@ -168,7 +186,7 @@ async function run() {
         embed_url, thumb_url, min_players, max_players, category_slugs,
         plays_count, rating_avg, published_at, updated_at
       ) VALUES (
-        ${g.slug}, 'manual', ${(g as any).featured ?? false},
+        ${g.slug}, 'manual', ${g.featured ?? false},
         ${g.title_es}, ${g.title_en}, ${g.tagline_es}, ${g.tagline_en},
         ${g.description_es}, ${g.description_en},
         ${g.instructions_es}, ${g.instructions_en},
