@@ -14,4 +14,7 @@ export const routing = defineRouting({
   // 'always' forces every URL to carry a locale prefix → cleaner SEO
   // (no duplicate-content between `/` and `/es/`).
   localePrefix: 'always',
+  // SEO is Spanish-only for now; page metadata/sitemap provide the
+  // canonical hreflang set without advertising noindexed /en URLs.
+  alternateLinks: false,
 });
