@@ -39,9 +39,12 @@ export default async function Home({
     getPopularGames(8),
     getAllCategories(),
   ]);
-  // First featured = hero spotlight; rest = top picks bar
-  const featured = featuredRows[0] ? projectGame(featuredRows[0]) : null;
-  const topPicks = featuredRows.slice(1, 4).map(projectGame);
+  const spotlightRow = featuredRows.find((g) => g.slug === 'wobble-park') ?? featuredRows[0];
+  const featured = spotlightRow ? projectGame(spotlightRow) : null;
+  const topPicks = featuredRows
+    .filter((g) => g.slug !== featured?.slug)
+    .slice(0, 3)
+    .map(projectGame);
   const popular = popularRows.map(projectGame);
   const allCategories = categoryRows.map(projectCategory);
   const lc = locale as Locale;
@@ -147,16 +150,13 @@ export default async function Home({
                 </div>
               </div>
               <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-900 to-cyan-900">
-                <div className="grid h-full w-full place-items-center text-zinc-300">
-                  <div className="text-center">
-                    <span className="text-4xl font-black tracking-tighter">
-                      WOBBLE<span className="text-cyan-300">PARK</span>
-                    </span>
-                    <p className="mt-2 text-xs text-zinc-400">
-                      {lc === 'es' ? 'Cooperativo · 1-8 jugadores' : 'Co-op · 1-8 players'}
-                    </p>
-                  </div>
-                </div>
+                <Image
+                  src={featured.thumbUrl}
+                  alt={featured.title[lc]}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
