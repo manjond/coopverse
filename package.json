@@ -11,6 +11,7 @@
     "db:seed": "tsx --env-file=.env.local scripts/seed.ts",
     "db:classify-sources": "tsx --env-file=.env.local scripts/classify-game-sources.ts",
     "db:remove-placeholders": "tsx --env-file=.env.local scripts/remove-placeholder-games.ts",
+    "db:use-crazygames-embeds": "tsx --env-file=.env.local scripts/use-crazygames-embeds.ts",
     "db:studio": "drizzle-kit studio",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",

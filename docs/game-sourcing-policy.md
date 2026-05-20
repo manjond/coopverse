@@ -25,3 +25,24 @@ Before publishing a third-party game:
 5. If the source is `direct`, keep a note outside git with the permission email/date/contact.
 
 SEO rule: add games in small batches with useful category coverage. A large batch of thin iframe pages can hurt quality signals, crawl budget, AdSense review, and user trust.
+
+Current direct-permission backlog after the 2026-05-20 CrazyGames migration:
+
+- `sketchful-io`: needs written permission from Sketchful or a documented official embed.
+- `territorial-io`: needs written permission from Territorial.io or a documented official embed.
+- `zombs-io`: needs written permission from Zombs.io or a documented official embed.
+
+Permission request template:
+
+> Hi,
+>
+> I run Coopverse (https://www.coopverse.io), a curated browser-games portal focused on co-op and multiplayer games.
+>
+> I would like to include [GAME NAME] in the catalog. Would you allow Coopverse to embed the game on its game page using an iframe or your preferred official embed URL, and to use the game name and a thumbnail/logo for the listing?
+>
+> The game would remain hosted by you or your official provider. Coopverse would not modify the game, hide branding, block ads, or claim ownership. The page may contain Coopverse navigation and ads around the catalog page.
+>
+> If you prefer a specific embed URL, thumbnail, attribution text, or if embedding is not allowed, please let me know.
+>
+> Thanks,
+> David
