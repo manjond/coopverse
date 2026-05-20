@@ -39,10 +39,19 @@ export default async function Home({
     getPopularGames(8),
     getAllCategories(),
   ]);
-  const spotlightRow = featuredRows.find((g) => g.slug === 'wobble-park') ?? featuredRows[0];
-  const featured = spotlightRow ? projectGame(spotlightRow) : null;
+  const featuredSlugs = ['wobble-park', 'fighting-cats'];
+  const pinnedFeatured = featuredSlugs
+    .map((slug) => featuredRows.find((g) => g.slug === slug))
+    .filter((g): g is NonNullable<typeof g> => Boolean(g));
+  const featuredGames = [
+    ...pinnedFeatured,
+    ...featuredRows.filter((g) => !featuredSlugs.includes(g.slug)),
+  ]
+    .slice(0, 2)
+    .map(projectGame);
+  const primaryFeatured = featuredGames[0] ?? null;
   const topPicks = featuredRows
-    .filter((g) => g.slug !== featured?.slug)
+    .filter((g) => !featuredGames.some((featured) => featured.slug === g.slug))
     .slice(0, 3)
     .map(projectGame);
   const popular = popularRows.map(projectGame);
@@ -78,9 +87,9 @@ export default async function Home({
             {t('heroSubtitle')}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {featured && (
+            {primaryFeatured && (
               <Link
-                href={`/play/${featured.slug}`}
+                href={`/play/${primaryFeatured.slug}`}
                 className="rounded-lg bg-cyan-500 px-6 py-3 text-base font-semibold text-zinc-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-400"
               >
                 {t('ctaPlayNow')} →
@@ -113,52 +122,59 @@ export default async function Home({
         </div>
       </section>
 
-      {/* Featured spotlight */}
-      {featured && (
+      {/* Featured spotlights */}
+      {featuredGames.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <h2 className="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
             {t('featuredGame')}
           </h2>
-          <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900/80 to-zinc-900/30">
-            <div className="grid gap-6 p-6 sm:grid-cols-2 sm:gap-10 sm:p-10">
-              <div className="flex flex-col justify-center">
-                <div className="flex items-center gap-2">
-                  <span className="rounded-md bg-amber-400/20 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-amber-300">
+          <div className="grid gap-5 lg:grid-cols-2">
+            {featuredGames.map((featured) => (
+              <article
+                key={featured.slug}
+                className="overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900/80 to-zinc-900/30"
+              >
+                <div className="grid h-full gap-6 p-6">
+                  <div className="flex flex-col justify-center">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-md bg-amber-400/20 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-amber-300">
                     ★ {lc === 'es' ? 'Exclusivo' : 'Exclusive'}
-                  </span>
-                  <span className="text-xs text-zinc-500">
+                      </span>
+                      <span className="text-xs text-zinc-500">
                     {featured.minPlayers}–{featured.maxPlayers} {lc === 'es' ? 'jugadores' : 'players'}
-                  </span>
-                </div>
-                <h3 className="mt-3 text-2xl font-bold text-white sm:text-4xl">
+                      </span>
+                    </div>
+                    <h3 className="mt-3 text-2xl font-bold text-white">
                   {featured.title[lc]}
-                </h3>
-                <p className="mt-3 text-zinc-400 line-clamp-3">{featured.description[lc]}</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href={`/play/${featured.slug}`}
-                    className="rounded-lg bg-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-fuchsia-400"
-                  >
+                    </h3>
+                    <p className="mt-3 text-zinc-400 line-clamp-3">{featured.description[lc]}</p>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      <Link
+                        href={`/play/${featured.slug}`}
+                        className="rounded-lg bg-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-fuchsia-400"
+                      >
                     ▶ {t('ctaPlayNow')}
-                  </Link>
-                  <Link
-                    href={`/g/${featured.slug}`}
-                    className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-100 transition hover:border-zinc-500"
-                  >
+                      </Link>
+                      <Link
+                        href={`/g/${featured.slug}`}
+                        className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-100 transition hover:border-zinc-500"
+                      >
                     {lc === 'es' ? 'Ver detalles' : 'View details'}
-                  </Link>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-900 to-cyan-900">
+                    <Image
+                      src={featured.thumbUrl}
+                      alt={featured.title[lc]}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-900 to-cyan-900">
-                <Image
-                  src={featured.thumbUrl}
-                  alt={featured.title[lc]}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
+              </article>
+            ))}
           </div>
         </section>
       )}
