@@ -134,21 +134,21 @@ export default async function Home({
                 key={featured.slug}
                 className="overflow-hidden rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900/80 to-zinc-900/30"
               >
-                <div className="grid h-full gap-6 p-6">
-                  <div className="flex flex-col justify-center">
-                    <div className="flex items-center gap-2">
+                <div className="flex h-full flex-col gap-4 p-5 sm:p-6">
+                  <div className="contents">
+                    <div className="order-1 flex flex-wrap items-center gap-2">
                       <span className="rounded-md bg-amber-400/20 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-amber-300">
-                    ★ {lc === 'es' ? 'Exclusivo' : 'Exclusive'}
+                    {lc === 'es' ? 'Destacado' : 'Featured'}
                       </span>
                       <span className="text-xs text-zinc-500">
                     {featured.minPlayers}–{featured.maxPlayers} {lc === 'es' ? 'jugadores' : 'players'}
                       </span>
                     </div>
-                    <h3 className="mt-3 text-2xl font-bold text-white">
+                    <h3 className="order-3 text-2xl font-bold text-white">
                   {featured.title[lc]}
                     </h3>
-                    <p className="mt-3 text-zinc-400 line-clamp-3">{featured.description[lc]}</p>
-                    <div className="mt-6 flex flex-wrap gap-3">
+                    <p className="order-4 text-zinc-400 line-clamp-3">{featured.description[lc]}</p>
+                    <div className="order-5 mt-auto flex flex-wrap gap-3 pt-2">
                       <Link
                         href={`/play/${featured.slug}`}
                         className="rounded-lg bg-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 transition hover:bg-fuchsia-400"
@@ -159,19 +159,23 @@ export default async function Home({
                         href={`/g/${featured.slug}`}
                         className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-semibold text-zinc-100 transition hover:border-zinc-500"
                       >
-                    {lc === 'es' ? 'Ver detalles' : 'View details'}
+                    {lc === 'es' ? 'Ver más' : 'View more'}
                       </Link>
                     </div>
                   </div>
-                  <div className="relative aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-900 to-cyan-900">
+                  <Link
+                    href={`/g/${featured.slug}`}
+                    aria-label={`${lc === 'es' ? 'Ver más sobre' : 'View more about'} ${featured.title[lc]}`}
+                    className="group relative order-2 aspect-video overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-900 to-cyan-900"
+                  >
                     <Image
                       src={featured.thumbUrl}
                       alt={featured.title[lc]}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
+                      className="object-cover transition duration-300 group-hover:scale-[1.03]"
                     />
-                  </div>
+                  </Link>
                 </div>
               </article>
             ))}

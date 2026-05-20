@@ -7,6 +7,9 @@ import { getSession } from '@/lib/auth';
 import type { Locale } from '@/data/types';
 
 export const dynamic = 'force-dynamic';
+export const metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function PerfilPage({
   params,
