@@ -14,8 +14,18 @@ export async function generateMetadata({
   const lc = locale as Locale;
   const alternates = localeAlternates(locale, '/juegos');
   return lc === 'es'
-    ? { title: 'Todos los juegos', description: 'Catálogo completo de juegos cooperativos y multijugador en Coopverse. Gratis, sin descargas.', alternates }
-    : { title: 'All games', description: 'Full catalog of co-op and multiplayer browser games on Coopverse. Free, no downloads.', alternates };
+    ? {
+        title: 'Juegos multijugador online gratis sin descargar',
+        description:
+          'Catálogo de juegos cooperativos y multijugador online para jugar gratis en navegador: party, acción, plataformas, .io y juegos para amigos.',
+        alternates,
+      }
+    : {
+        title: 'Free online multiplayer games, no downloads',
+        description:
+          'A catalog of free co-op and multiplayer browser games: party, action, platformers, .io games and games to play with friends.',
+        alternates,
+      };
 }
 
 export default async function AllGamesPage({

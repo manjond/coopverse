@@ -20,9 +20,20 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    alternates: localeAlternates(locale),
-  };
+  const lc = locale as Locale;
+  return lc === 'es'
+    ? {
+        title: 'Juegos cooperativos y multijugador online gratis',
+        description:
+          'Juega a juegos cooperativos y multijugador gratis en el navegador. Sin descargar, con juegos para 2, 3, 4 o más jugadores.',
+        alternates: localeAlternates(locale),
+      }
+    : {
+        title: 'Free co-op and multiplayer browser games',
+        description:
+          'Play free co-op and multiplayer games in your browser. No downloads, with games for 2, 3, 4 or more players.',
+        alternates: localeAlternates(locale),
+      };
 }
 
 export default async function Home({

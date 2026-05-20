@@ -1,10 +1,11 @@
 import type { PostMeta } from '../types';
+import { Link } from '@/i18n/navigation';
 
 export const meta: PostMeta = {
   slug: 'juegos-io-multijugador-mejores',
-  title: 'Los mejores juegos .io multijugador de 2026 — Guía completa',
+  title: 'Mejores juegos .io multijugador gratis en 2026',
   description:
-    'Todo sobre los juegos .io: qué son, cómo funcionan y cuáles son los mejores juegos .io multijugador que puedes jugar gratis ahora mismo en el navegador.',
+    'Lista de juegos .io multijugador gratis para jugar en el navegador sin descargar: acción, territorio, shooters, supervivencia y partidas rápidas.',
   publishedAt: '2026-05-07',
   readingTimeMin: 5,
   tags: ['juegos io', 'multijugador', 'navegador', 'gratis'],
@@ -17,7 +18,7 @@ export default function Content() {
         Los juegos <strong>.io</strong> son uno de los géneros de navegador de mayor
         crecimiento desde 2015. Simples de entender, imposibles de dominar, y siempre con
         otros jugadores reales al otro lado. Esta guía cubre todo lo que necesitas saber
-        y los mejores títulos del género.
+        y los mejores títulos del género para jugar gratis, sin descargar nada.
       </p>
 
       <h2>¿Qué son los juegos .io?</h2>
@@ -35,6 +36,14 @@ export default function Content() {
         <li>Mecánica central simple (crecer, disparar, conquistar territorio)</li>
         <li>Alta rejugabilidad por las partidas cortas</li>
       </ul>
+
+      <p>
+        Si quieres ir directo al catálogo, en Coopverse puedes abrir juegos .io como{' '}
+        <Link href="/g/diep-io">Diep.io</Link>, <Link href="/g/splix-io">Splix.io</Link>,{' '}
+        <Link href="/g/paper-io-2">Paper.io 2</Link>,{' '}
+        <Link href="/g/battledudes-io">BattleDudes.io</Link> o{' '}
+        <Link href="/g/defly-io">Defly.io</Link> desde el navegador.
+      </p>
 
       <h2>Los 10 mejores juegos .io de 2026</h2>
 
@@ -55,14 +64,14 @@ export default function Content() {
 
       <h3>3. Splix.io — Conquista de territorio</h3>
       <p>
-        Expande tu zona coloreando el mapa con tu estela. Mientras estás fuera de tu
+        <Link href="/g/splix-io">Splix.io</Link> te reta a expandir tu zona coloreando el mapa con tu estela. Mientras estás fuera de tu
         territorio eres vulnerable — si te cortan la línea de vuelta, mueres. La tensión
         de expandir sabiendo el riesgo crea decisiones constantes de riesgo/recompensa.
       </p>
 
       <h3>4. Diep.io — Tanques con progresión</h3>
       <p>
-        Tanque que destruye formas geométricas y otros tanques para subir de nivel y
+        <Link href="/g/diep-io">Diep.io</Link> es un juego de tanques que destruye formas geométricas y otros tanques para subir de nivel y
         mejorar stats. Con más de 50 clases de tanques desbloqueables y varios modos de juego
         (incluido equipo), es uno de los .io con más profundidad.
       </p>
@@ -83,7 +92,7 @@ export default function Content() {
 
       <h3>7. Paper.io 2 — Papel y territorio</h3>
       <p>
-        Versión más rápida y visual de Splix.io. Controlas un cuadrado que pinta el suelo de
+        <Link href="/g/paper-io-2">Paper.io 2</Link> es una versión más rápida y visual de Splix.io. Controlas un cuadrado que pinta el suelo de
         tu color mientras exploras. El arte emergente del mapa cuando muchos jugadores compiten
         por el mismo espacio es visualmente caótico y divertido.
       </p>

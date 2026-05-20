@@ -18,13 +18,39 @@ import { StarRating } from '@/components/StarRating';
 import { ShareButton } from '@/components/ShareButton';
 import type { Locale } from '@/data/types';
 import { routing } from '@/i18n/routing';
-import { localeAlternates } from '@/lib/site';
+import { absoluteUrl, localeAlternates } from '@/lib/site';
 
 export async function generateStaticParams() {
   const all = await getAllGames();
   return routing.locales.flatMap((locale) =>
     all.map((g) => ({ locale, slug: g.slug })),
   );
+}
+
+function playerLabel(minPlayers: number, maxPlayers: number, locale: Locale) {
+  if (minPlayers === maxPlayers) {
+    const singular = minPlayers === 1;
+    return locale === 'es'
+      ? `${minPlayers} ${singular ? 'jugador' : 'jugadores'}`
+      : `${minPlayers} ${singular ? 'player' : 'players'}`;
+  }
+
+  return locale === 'es'
+    ? `${minPlayers}-${maxPlayers} jugadores`
+    : `${minPlayers}-${maxPlayers} players`;
+}
+
+function gameSeoTitle(title: string, locale: Locale) {
+  return locale === 'es'
+    ? `Jugar ${title} online gratis`
+    : `Play ${title} online for free`;
+}
+
+function gameSeoDescription(game: ReturnType<typeof projectGame>, locale: Locale) {
+  const players = playerLabel(game.minPlayers, game.maxPlayers, locale);
+  return locale === 'es'
+    ? `${game.tagline.es} Juega gratis en navegador, sin descargar. Para ${players}.`
+    : `${game.tagline.en} Play free in your browser, no downloads. For ${players}.`;
 }
 
 export async function generateMetadata({
@@ -37,14 +63,23 @@ export async function generateMetadata({
   if (!row) return {};
   const game = projectGame(row);
   const lc = locale as Locale;
+  const title = gameSeoTitle(game.title[lc], lc);
+  const description = gameSeoDescription(game, lc);
   return {
-    title: game.title[lc],
-    description: game.tagline[lc],
+    title,
+    description,
     openGraph: {
-      title: game.title[lc],
-      description: game.tagline[lc],
+      title,
+      description,
+      url: absoluteUrl(`/${locale}/g/${slug}`),
       images: [game.thumbUrl],
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [game.thumbUrl],
     },
     alternates: localeAlternates(locale, `/g/${slug}`),
   };
