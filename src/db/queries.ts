@@ -1,7 +1,7 @@
 import { eq, desc, sql, asc, inArray } from 'drizzle-orm';
 import { db } from './client';
 import { categories, favorites, games, type Game, type Category } from './schema';
-import type { Locale } from '@/data/types';
+import type { GameSource, Locale } from '@/data/types';
 
 /**
  * Catalog read API. Pages call these instead of touching the DB
@@ -108,7 +108,7 @@ export async function getUserFavoriteGames(userId: string): Promise<Game[]> {
 export function projectGame(g: Game) {
   return {
     slug: g.slug,
-    source: g.source as 'own' | 'gd' | 'manual',
+    source: g.source as GameSource,
     featured: g.featured,
     title: { es: g.titleEs, en: g.titleEn },
     tagline: { es: g.taglineEs, en: g.taglineEn },

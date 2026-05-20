@@ -61,9 +61,24 @@ function validateRequiredText(value: string, field: string, maxLength = 5000): s
   return value;
 }
 
-function validateSource(source: string): 'manual' | 'own' | 'gd' {
-  if (source === 'manual' || source === 'own' || source === 'gd') return source;
-  throw new Error('Source must be manual, own, or gd');
+const VALID_GAME_SOURCES = [
+  'manual',
+  'own',
+  'crazygames',
+  'gamedistribution',
+  'gd',
+  'gamepix',
+  'gamezop',
+  'famobi',
+  'itch',
+  'direct',
+] as const;
+
+type ValidGameSource = (typeof VALID_GAME_SOURCES)[number];
+
+function validateSource(source: string): ValidGameSource {
+  if ((VALID_GAME_SOURCES as readonly string[]).includes(source)) return source as ValidGameSource;
+  throw new Error(`Source must be one of: ${VALID_GAME_SOURCES.join(', ')}`);
 }
 
 function validatePlayerCount(value: FormDataEntryValue | null, field: string): number {
@@ -196,6 +211,7 @@ export async function updateGame(slug: string, formData: FormData) {
   await db
     .update(games)
     .set({
+      source: validateSource(f('source') || 'manual'),
       featured: formData.get('featured') === 'on',
       titleEs: validateRequiredText(f('titleEs'), 'Title ES', 160),
       titleEn: validateRequiredText(f('titleEn'), 'Title EN', 160),

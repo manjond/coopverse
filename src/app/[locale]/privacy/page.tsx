@@ -17,7 +17,7 @@ export async function generateMetadata({
 
 const COPY: Record<Locale, { lastUpdated: string; html: string }> = {
   es: {
-    lastUpdated: '2026-04-30',
+    lastUpdated: '2026-05-20',
     html: `
       <h2>Quiénes somos</h2>
       <p>Coopverse es un portal de juegos cooperativos y multijugador en navegador operado por un particular en España. Para contacto: <a href="mailto:hola@coopverse.io">hola@coopverse.io</a>.</p>
@@ -45,14 +45,15 @@ const COPY: Record<Locale, { lastUpdated: string; html: string }> = {
       <p>Puedes pedir acceder, rectificar o borrar tus datos escribiendo a <a href="mailto:hola@coopverse.io">hola@coopverse.io</a>. También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD).</p>
 
       <h2>Terceros</h2>
-      <p>Algunos juegos del catálogo se sirven mediante iframes de terceros (GameDistribution, GamePix u otros proveedores). Esos terceros pueden recoger sus propios datos según sus políticas. No tenemos control directo sobre sus prácticas.</p>
+      <p>Algunos juegos del catálogo se sirven mediante iframes, enlaces o reproductores de terceros (por ejemplo CrazyGames, GameDistribution, GamePix, Gamezop, Famobi, itch.io u operadores directos de juegos). Al abrir un juego de terceros, ese proveedor puede recibir datos técnicos como dirección IP, navegador, dispositivo, URL de referencia, identificadores publicitarios o estadísticas de juego, según sus propias políticas.</p>
+      <p>No controlamos directamente las prácticas de esos terceros. Si no quieres que un proveedor externo reciba esos datos, no abras ese juego o usa el enlace a su política antes de jugar cuando esté disponible.</p>
 
       <h2>Cambios</h2>
       <p>Esta política puede actualizarse. La fecha "Última actualización" indicará la última revisión.</p>
     `,
   },
   en: {
-    lastUpdated: '2026-04-30',
+    lastUpdated: '2026-05-20',
     html: `
       <h2>Who we are</h2>
       <p>Coopverse is a portal of co-op and multiplayer browser games operated by an individual based in Spain. Contact: <a href="mailto:hola@coopverse.io">hola@coopverse.io</a>.</p>
@@ -79,7 +80,8 @@ const COPY: Record<Locale, { lastUpdated: string; html: string }> = {
       <p>You can request access, rectification or deletion of your data by writing to <a href="mailto:hola@coopverse.io">hola@coopverse.io</a>. You can also lodge a complaint with the Spanish Data Protection Agency (AEPD).</p>
 
       <h2>Third parties</h2>
-      <p>Some games are served via third-party iframes (GameDistribution, GamePix and others). Those providers may collect their own data per their own policies. We don't directly control their practices.</p>
+      <p>Some games are served via third-party iframes, links or official players (for example CrazyGames, GameDistribution, GamePix, Gamezop, Famobi, itch.io or direct game operators). When you open a third-party game, that provider may receive technical data such as IP address, browser, device, referrer URL, advertising identifiers or gameplay stats, according to its own policies.</p>
+      <p>We do not directly control those third-party practices. If you do not want an external provider to receive that data, do not open that game or check the provider's policy before playing when available.</p>
 
       <h2>Changes</h2>
       <p>This policy may be updated. The "Last updated" date indicates the latest revision.</p>

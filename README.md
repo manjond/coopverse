@@ -50,8 +50,9 @@ messages/
 
 - Keep `AUTH_SECRET`, `ADMIN_PASSWORD`, and `DATABASE_URL` out of git.
 - Production `AUTH_SECRET` must be a random value with at least 32 characters.
-- `/admin`, `/api`, and `/[locale]/play/*` are excluded from indexing.
-- Third-party games are loaded in sandboxed iframes; add new embeds through the admin form so URL validation runs.
+- `/admin` and `/api` are blocked in robots; `/[locale]/play/*` returns noindex metadata so Google ranks `/g/[slug]` instead.
+- Third-party games are loaded in sandboxed iframes; add new embeds through the admin form so URL validation and source labeling run.
+- New third-party games must come from an official embed/API, a publisher agreement, or written permission. Keep notes in `docs/game-sourcing-policy.md`.
 
 ## Deploy
 

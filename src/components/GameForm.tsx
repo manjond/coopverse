@@ -18,6 +18,19 @@ type Game = {
   categorySlugs?: string[];
 };
 
+const SOURCE_OPTIONS = [
+  { value: 'own', label: 'Propio / owned' },
+  { value: 'crazygames', label: 'CrazyGames embed oficial' },
+  { value: 'gamedistribution', label: 'GameDistribution' },
+  { value: 'gamepix', label: 'GamePix' },
+  { value: 'gamezop', label: 'Gamezop' },
+  { value: 'famobi', label: 'Famobi' },
+  { value: 'itch', label: 'itch.io widget' },
+  { value: 'direct', label: 'Directo con permiso' },
+  { value: 'manual', label: 'Manual / pendiente' },
+  { value: 'gd', label: 'GameDistribution legacy (gd)' },
+];
+
 export function GameForm({
   initial = {},
   action,
@@ -61,12 +74,7 @@ export function GameForm({
       <div className="grid gap-4 sm:grid-cols-3">
         <Field label="Mínimo de jugadores" name="minPlayers" type="number" defaultValue={initial.minPlayers ?? 1} />
         <Field label="Máximo de jugadores" name="maxPlayers" type="number" defaultValue={initial.maxPlayers ?? 1} />
-        <Field
-          label="Origen (manual, own o gd)"
-          name="source"
-          defaultValue={initial.source ?? 'manual'}
-          mono
-        />
+        <SourceField defaultValue={initial.source ?? 'manual'} />
       </div>
 
       <Field
@@ -95,6 +103,28 @@ export function GameForm({
         </button>
       </div>
     </form>
+  );
+}
+
+function SourceField({ defaultValue }: { defaultValue: string }) {
+  return (
+    <label className="block">
+      <span className="block text-xs uppercase tracking-wider text-zinc-500">Origen / licencia</span>
+      <select
+        name="source"
+        defaultValue={defaultValue}
+        className="mt-1 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-cyan-500"
+      >
+        {SOURCE_OPTIONS.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <span className="mt-1 block text-xs text-zinc-500">
+        Usa &quot;directo&quot; solo si hay permiso claro del titular o del operador del juego.
+      </span>
+    </label>
   );
 }
 

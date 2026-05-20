@@ -11,7 +11,17 @@ export interface LocalizedString {
   en: string;
 }
 
-export type GameSource = 'own' | 'gd' | 'manual';
+export type GameSource =
+  | 'own'
+  | 'crazygames'
+  | 'gamedistribution'
+  | 'gd'
+  | 'gamepix'
+  | 'gamezop'
+  | 'famobi'
+  | 'itch'
+  | 'direct'
+  | 'manual';
 
 export interface Game {
   /** URL slug — kebab-case, language-neutral. */
